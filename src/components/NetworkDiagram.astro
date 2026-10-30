@@ -1,0 +1,89 @@
+---
+// The model in one picture: five firms on the wheel, each with its own warehouse where records stop.
+// Patterns go to the hub; smarter agents come back. Drawn from the deck's "The model" slide.
+const C = 400;
+const firms = [
+  { name: 'Livewire', note: 'Client zero', open: false, lit: true },
+  { name: 'Founding firm', note: 'Committed', open: false },
+  { name: 'Founding firm', note: 'Committed', open: false },
+  { name: 'Seat 04', note: 'Open', open: true },
+  { name: 'Seat 05', note: 'Open', open: true },
+].map((f, i) => {
+  const a = ((-90 + i * 72) * Math.PI) / 180;
+  const at = (r: number) => ({ x: C + r * Math.cos(a), y: C + r * Math.sin(a) });
+  return { ...f, a, box: at(282), from: at(122), to: at(212) };
+});
+---
+<figure class="net">
+  <svg viewBox="0 0 800 800" role="img" aria-labelledby="net-title net-desc">
+    <title id="net-title">How the Flywheel network works</title>
+    <desc id="net-desc">Five member firms sit around a central network. Each firm keeps its records in its own warehouse. Patterns, playbooks and benchmarks flow to the network, and smarter agents flow back to every firm.</desc>
+    <defs>
+      <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" fill="#f0d000" /></marker>
+      <marker id="arr-dim" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" fill="#6b7178" /></marker>
+    </defs>
+    <circle cx={C} cy={C} r="282" fill="none" stroke="#2e3236" stroke-width="1" stroke-dasharray="2 6" />
+    {firms.map((f) => (
+      <line x1={f.from.x} y1={f.from.y} x2={f.to.x} y2={f.to.y} stroke={f.open ? '#4a4f55' : '#f0d000'} stroke-width="1.5" stroke-dasharray={f.open ? '4 5' : undefined} marker-start={f.open ? 'url(#arr-dim)' : 'url(#arr)'} marker-end={f.open ? 'url(#arr-dim)' : 'url(#arr)'} />
+    ))}
+    <circle cx={C} cy={C} r="116" fill="#f0d000" />
+    <text x={C} y={C - 26} class="hub-k" text-anchor="middle">The network</text>
+    <text x={C} y={C + 4} class="hub" text-anchor="middle">Patterns</text>
+    <text x={C} y={C + 30} class="hub" text-anchor="middle">Playbooks</text>
+    <text x={C} y={C + 56} class="hub" text-anchor="middle">Benchmarks</text>
+    {firms.map((f) => (
+      <g transform={`translate(${f.box.x - 100} ${f.box.y - 52})`}>
+        <rect width="200" height="104" fill={f.open ? 'none' : '#1f2124'} stroke={f.lit ? '#f0d000' : f.open ? '#4a4f55' : '#969ba1'} stroke-width="1.5" stroke-dasharray={f.open ? '5 5' : undefined} />
+        <text x="16" y="34" class={f.open ? 'firm dim' : 'firm'}>{f.name}</text>
+        <text x="16" y="56" class={f.lit ? 'note lit' : 'note'}>{f.note}</text>
+        {!f.open && (
+          <g transform="translate(16 72)">
+            <rect width="12" height="14" fill="none" stroke="#969ba1" stroke-width="1.2" />
+            <line x1="0" y1="5" x2="12" y2="5" stroke="#969ba1" stroke-width="1.2" />
+            <text x="20" y="12" class="wh">Records stop here</text>
+          </g>
+        )}
+      </g>
+    ))}
+  </svg>
+  <ol class="list" aria-hidden="true">
+    <li class="hubrow"><span class="mono">The network</span>Patterns · playbooks · benchmarks</li>
+    {firms.map((f) => <li class:list={[{ open: f.open, lit: f.lit }]}><span class="mono">{f.note}</span>{f.name}{!f.open && <em class="mono">Records stop here</em>}</li>)}
+  </ol>
+  <figcaption>
+    <span><i class="k sig"></i>Patterns out, smarter agents back</span>
+    <span><i class="k box"></i>Each firm’s own warehouse</span>
+    <span><i class="k dash"></i>Founding seat still open</span>
+  </figcaption>
+</figure>
+
+<style>
+  .net { margin: 0; }
+  svg { width: 100%; max-width: 640px; margin: 0 auto; overflow: visible; }
+  .hub-k { font-family: var(--mono); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; fill: #141414; }
+  .hub { font-family: var(--display); font-size: 25px; font-weight: 600; text-transform: uppercase; fill: #141414; }
+  .firm { font-family: var(--display); font-size: 25px; font-weight: 500; text-transform: uppercase; fill: #faf9f6; }
+  .firm.dim { fill: #6b7178; }
+  .note { font-family: var(--mono); font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; fill: #969ba1; }
+  .note.lit { fill: #f0d000; }
+  .wh { font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; fill: #969ba1; }
+  .list { display: none; list-style: none; margin: 0; padding: 0; }
+  @media (max-width: 640px) {
+    svg { display: none; }
+    .list { display: grid; gap: 8px; }
+    .list li { display: grid; gap: 4px; padding: 14px 16px; border: 1.5px solid var(--fog); background: var(--ink-2); font-family: var(--display); text-transform: uppercase; font-size: 1.3rem; line-height: 1.1; }
+    .list .mono { font-size: 0.66rem; color: var(--fog); }
+    .list em { font-style: normal; font-size: 0.62rem; color: var(--fog); }
+    .list .hubrow { background: var(--signal); border-color: var(--signal); color: var(--ink); }
+    .list .hubrow .mono { color: var(--ink); }
+    .list .lit { border-color: var(--signal); }
+    .list .lit .mono:first-child { color: var(--signal); }
+    .list .open { background: none; border-style: dashed; border-color: var(--steel); color: var(--mute); }
+  }
+  figcaption { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 28px; margin-top: 32px; font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--fog); }
+  figcaption span { display: inline-flex; align-items: center; gap: 10px; }
+  .k { display: inline-block; width: 18px; height: 10px; }
+  .k.sig { height: 0; border-top: 1.5px solid var(--signal); }
+  .k.box { border: 1.5px solid var(--fog); }
+  .k.dash { border: 1.5px dashed var(--steel); }
+</style>

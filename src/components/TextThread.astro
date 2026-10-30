@@ -1,0 +1,39 @@
+---
+// The hero's proof of the "you text them like an employee" promise. Illustrative, and labeled as such.
+const thread = [
+  { from: 'you', who: 'Dana, service manager', text: 'Hendersons say the kitchen Sonos keeps dropping again.' },
+  { from: 'agent', who: 'Support', text: 'Third time since July, same access point. A remote reboot cleared it for now. I drafted a $340 AP swap quote. Send it to them, or hold for you?' },
+  { from: 'you', who: 'Dana', text: 'Send it.' },
+  { from: 'agent', who: 'Support', text: 'Sent and logged on the ticket. Four minutes from their text to a fix and a quote.' },
+];
+---
+<figure class="thread" aria-label="Example text thread between a service manager and the Support agent">
+  <div class="top">
+    <span class="mono">Support · Seat 03</span>
+    <span class="mono dim">Tue 7:42 PM</span>
+  </div>
+  <ol>
+    {thread.map((m) => (
+      <li class={m.from}>
+        <span class="who mono">{m.who}</span>
+        <p>{m.text}</p>
+      </li>
+    ))}
+  </ol>
+  <figcaption class="mono">Illustrative thread</figcaption>
+</figure>
+
+<style>
+  .thread { margin: 0; background: var(--ink-2); border: 1px solid var(--line-dark); color: var(--paper); max-width: 440px; width: 100%; justify-self: end; }
+  .top { display: flex; justify-content: space-between; padding: 14px 18px; border-bottom: 1px solid var(--line-dark); color: var(--line-2); font-size: 0.7rem; }
+  .dim { color: var(--mute); }
+  ol { list-style: none; margin: 0; padding: 20px 18px 8px; display: grid; gap: 14px; }
+  li { max-width: 86%; }
+  li p { margin: 4px 0 0; padding: 12px 14px; font-size: 0.95rem; line-height: 1.45; }
+  .who { font-size: 0.62rem; color: var(--fog); }
+  .you { justify-self: end; text-align: right; }
+  .you p { background: var(--signal); color: var(--ink); text-align: left; }
+  .agent p { background: var(--char); }
+  figcaption { padding: 10px 18px 14px; font-size: 0.62rem; color: var(--mute); text-align: right; }
+  @media (max-width: 960px) { .thread { justify-self: start; } }
+</style>

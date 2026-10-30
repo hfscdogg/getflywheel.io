@@ -1,0 +1,51 @@
+---
+// Same journey layer as getlivewire.com, without the ad pixels: a first-party visitor id, first and last touch,
+// and every CTA, email and outbound click. GA4 loads only once SITE.ga4 is set. Events go to dataLayer now;
+// point `send` at a collector (the Flywheel warehouse) when one exists.
+import { SITE } from '../site';
+const { ga4 } = SITE;
+---
+{ga4 && <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${ga4}`}></script>}
+<script is:inline define:vars={{ ga4 }}>
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { dataLayer.push(arguments); };
+  if (ga4) { gtag('js', new Date()); gtag('config', ga4); }
+  (function () {
+    var KEY = 'fw_journey';
+    function read() { try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { return {}; } }
+    function write(j) { try { localStorage.setItem(KEY, JSON.stringify(j)); } catch (e) {} }
+    function uid() { return 'c' + Math.random().toString(36).slice(2) + Date.now().toString(36); }
+    var j = read();
+    if (!j.cid) { j.cid = uid(); j.first_seen = new Date().toISOString(); }
+    var q = new URLSearchParams(location.search), touch = {};
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'fbclid', 'li_fat_id'].forEach(function (k) { if (q.get(k)) touch[k] = q.get(k); });
+    if (!Object.keys(touch).length && document.referrer && document.referrer.indexOf(location.hostname) === -1) touch.referrer = document.referrer;
+    if (Object.keys(touch).length) { touch.landing = location.pathname; touch.at = new Date().toISOString(); if (!j.first_touch) j.first_touch = touch; j.last_touch = touch; }
+    j.pages = (j.pages || 0) + 1;
+    write(j);
+
+    function send(event, props) {
+      var payload = Object.assign({ event: event, cid: j.cid, path: location.pathname, ts: new Date().toISOString() }, props || {});
+      if (ga4 && event !== 'page_view') gtag('event', event, props || {});
+      dataLayer.push(payload);
+    }
+    window.fw = { track: send, journey: j };
+    send('page_view');
+
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest('a, button'); if (!a) return;
+      var href = a.getAttribute('href') || '';
+      if (a.dataset.track) send(a.dataset.track, { label: a.dataset.label || a.textContent.trim().slice(0, 80), href: href });
+      else if (href.indexOf('mailto:') === 0) send('email_click', { href: href });
+      else if (/^https?:/.test(href) && href.indexOf(location.hostname) === -1) send('outbound_click', { href: href });
+    });
+
+    // Attribution rides along on every form, so an application arrives with its first touch.
+    document.querySelectorAll('form[data-stamp]').forEach(function (form) {
+      var fields = Object.assign({}, j.first_touch || {}, { fw_cid: j.cid });
+      Object.keys(fields).forEach(function (k) {
+        var i = document.createElement('input'); i.type = 'hidden'; i.name = k; i.value = fields[k]; form.appendChild(i);
+      });
+    });
+  })();
+</script>

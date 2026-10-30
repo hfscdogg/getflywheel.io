@@ -1,0 +1,101 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import FaqList from '../components/FaqList.astro';
+import { SITE } from '../site';
+import type { Faq } from '../schema';
+
+const onboarding = [
+  { n: 'Week 1', t: 'Business brief', p: 'Thirty minutes on the work you want, the markets you serve, the brands you sell and the jobs you turn down. Every agent reads it before it does anything for you. Blank beats a guess; anything you don’t know, we audit.' },
+  { n: 'Week 1', t: 'Your warehouse', p: 'A secure data warehouse is created in your firm’s name, in your own cloud account. It pulls from the systems you already run, such as QuickBooks, your CRM, ticketing, Google Analytics and Search Console.' },
+  { n: 'Week 2', t: 'One credential', p: 'You issue Flywheel a single read credential. That is the entire surface area. Firing us is one revocation.' },
+  { n: 'Week 2', t: 'Baseline', p: 'Before an agent touches anything, we record where the number it owns stands today, so the 90-day probation is measured against something real.' },
+  { n: 'Week 3', t: 'First day on the job', p: 'Your new hire is introduced to the team by name, gets a manager on your staff and starts posting its work where your team already talks, by text or in Slack.' },
+  { n: 'Weekly', t: 'A brief, and an approver', p: 'Each seat sends a weekly brief: what it did, what it recommends and what it needs. A named person on your team approves anything that goes out. Nothing acts without a human yes.' },
+];
+
+const trust = [
+  { n: '01', t: 'You own it', p: 'The warehouse is in your firm’s name from day one, in your cloud account.' },
+  { n: '02', t: 'One credential', p: 'You issue it to us. Readers are read-only by role, not by convention.' },
+  { n: '03', t: 'One revocation', p: 'Firing us takes a single click, and nothing is copied out to come back for.' },
+  { n: '04', t: 'Opt-in network', p: 'Network participation is opt-in, seat by seat. Aggregates are never sliced thin enough to expose a member.' },
+];
+
+const faqs: Faq[] = [
+  { q: 'How long does it take to get started?', a: 'Most firms have their warehouse, credential and baseline in place within two weeks, and their first AI employee working in week three. The business brief takes about 30 minutes.' },
+  { q: 'Does an agent ever act without approval?', a: 'No. Every seat sends its work to a named approver on your team. Nothing is posted, sent or changed without a human yes.' },
+  { q: 'Can other members see my data?', a: 'No. Each firm runs in its own isolated station with its own warehouse and credentials. No process can load two firms at once. Only anonymized patterns and playbooks travel to the network, through a human-approved gate.' },
+  { q: 'What systems does Flywheel work with?', a: 'The staff reads from the tools integrators already run, including QuickBooks, common CRMs, ticketing and remote monitoring, Google Analytics, Google Ads, Search Console and call tracking. When Flywheel builds a connector for one member, every member on that tool gets it.' },
+];
+---
+<Base title="How it works" description="How a custom integration firm gets started with Flywheel: a business brief, a data warehouse in your name, one credential, a measured baseline and AI staff that report to a human approver." crumbs={[{ name: 'How it works', url: '/how-it-works/' }]} faqs={faqs}>
+  <PageHero crumb="How it works" label="How it works" title="Own your data. <span class='hl'>Hire</span> your staff. Join the network." lede="Three steps, about three weeks, and no software to build or host. You keep the data, the customers and the final say." />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="label">Onboarding</p>
+          <h2>From brief to first day on the job.</h2>
+        </div>
+        <p>The same onboarding Livewire went through as client zero, tightened with each founding firm.</p>
+      </div>
+      <div class="rows timeline">
+        {onboarding.map((r) => <div class="row"><span class="n">{r.n}</span><h3>{r.t}</h3><p>{r.p}</p></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section dark" id="trust">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="label">Trust architecture</p>
+          <h2>Patterns travel. Records never do.</h2>
+        </div>
+        <p>Think of a franchise kitchen. Flywheel writes one recipe book. Each firm gets its own station with its own ingredients. Improve the recipe once and every station benefits. No station can reach into another’s pantry.</p>
+      </div>
+      <div class="trust">
+        {trust.map((t) => <div><span class="mono">{t.n}</span><h3>{t.t}</h3><p>{t.p}</p></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section white">
+    <div class="wrap split">
+      <div>
+        <p class="label">Lease or build</p>
+        <h2>Two ways to run it.</h2>
+      </div>
+      <div class="two">
+        <div>
+          <h3>Lease</h3>
+          <p>We staff it and run it, monthly. The playbook improves for every member at once, and your seats get the upgrade without anyone on your team lifting a finger.</p>
+        </div>
+        <div>
+          <h3>Build</h3>
+          <p>You own it outright and we hand over the keys. For firms with their own technical people who want the agents running entirely in-house.</p>
+        </div>
+        <a class="textlink" href="/pricing/">See pricing</a>
+      </div>
+    </div>
+  </section>
+
+  <FaqList faqs={faqs} />
+</Base>
+
+<style>
+  .timeline .row .n { color: var(--slate); font-weight: 700; }
+  .trust { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1.5px solid var(--paper); }
+  .trust > div { padding: 28px 28px 0 0; }
+  .trust > div + div { padding-left: 28px; border-left: 1px solid var(--line-dark); }
+  .trust .mono { color: var(--signal); }
+  .trust h3 { margin: 18px 0 12px; }
+  .trust p { color: var(--line-2); margin: 0; }
+  @media (max-width: 900px) { .trust { grid-template-columns: 1fr 1fr; } .trust > div:nth-child(3) { padding-left: 0; border-left: 0; } .trust > div { padding-bottom: 28px; } }
+  @media (max-width: 560px) { .trust { grid-template-columns: 1fr; } .trust > div + div { padding-left: 0; border-left: 0; border-top: 1px solid var(--line-dark); } }
+  .two { display: grid; gap: 32px; }
+  .two h3 { margin-bottom: 10px; }
+  .two p { margin: 0; color: var(--char); max-width: 56ch; }
+  .two .textlink { justify-self: start; }
+</style>

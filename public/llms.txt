@@ -1,0 +1,17 @@
+# Flywheel
+
+> Flywheel is a community-powered AI platform for custom integration (CI) firms: residential and commercial audio video, automation, lighting control and security integrators. It gives each member firm AI employees for marketing, outbound sales, service triage and system design, which the team reaches by text like any coworker. Each firm owns its own data warehouse; only anonymized patterns and playbooks travel between members.
+
+- Based in: Richmond, Virginia
+- Built inside: Livewire, a Richmond integration firm founded in 1994 (client zero)
+- Founding window: five founding member firms; three committed, two seats open
+- Pricing: One hire $749/month, Three hires with warehouse $1,749/month, Full staff $3,499/month; one-time $4,999 setup; 90-day initial term, then month to month
+- Contact: hello@getflywheel.io; press: press@getflywheel.io
+
+## Pages
+- [How it works](https://www.getflywheel.io/how-it-works/): onboarding, the data warehouse each firm owns, the trust architecture
+- [AI staff](https://www.getflywheel.io/ai-staff/): the Marketing, Outbound, Support and System Designer seats, and the tools they use (Lifecycle, Permit Miner, Intel Engine)
+- [The network](https://www.getflywheel.io/network/): how patterns travel between members, the contributor pool and referral terms
+- [Pricing](https://www.getflywheel.io/pricing/): plans, setup and terms
+- [About](https://www.getflywheel.io/about/): the client zero story at Livewire
+- [Apply](https://www.getflywheel.io/apply/): apply for a founding seat

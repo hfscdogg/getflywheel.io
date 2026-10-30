@@ -1,0 +1,109 @@
+---
+import '@fontsource-variable/oswald/wght.css';
+import '@fontsource-variable/hanken-grotesk/wght.css';
+import '@fontsource/space-mono/400.css';
+import '@fontsource/space-mono/700.css';
+import '../styles/global.css';
+import Analytics from '../components/Analytics.astro';
+import Mark from '../components/Mark.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { SITE } from '../site';
+import { graph, type Faq } from '../schema';
+
+interface Props {
+  title: string;
+  description: string;
+  crumbs?: { name: string; url: string }[];
+  faqs?: Faq[];
+  schema?: Record<string, unknown>[];
+  noindex?: boolean;
+  cta?: boolean;
+}
+const { title, description, crumbs = [], faqs, schema, noindex = false, cta = true } = Astro.props;
+const path = Astro.url.pathname;
+const canonical = new URL(path, Astro.site).href;
+const fullTitle = path === '/' ? title : `${title} | Flywheel`;
+const image = new URL('/og.png', Astro.site).href;
+const ld = graph({ canonical, title: fullTitle, description, image, crumbs, faqs, extra: schema });
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{fullTitle}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  {noindex && <meta name="robots" content="noindex,follow" />}
+  <meta name="theme-color" content="#141414" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Flywheel" />
+  <meta property="og:title" content={fullTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={image} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/brand/mark-512.png" />
+  <link rel="alternate" type="text/plain" href="/llms.txt" title="Flywheel for language models" />
+  <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  <Analytics />
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/" aria-label="Flywheel home"><Mark /> Flywheel</a>
+      <button class="menu-toggle" aria-controls="nav" aria-expanded="false" onclick="var n=document.getElementById('nav');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))">Menu</button>
+      <nav id="nav" class="site-nav" aria-label="Main">
+        {SITE.nav.map((n) => <a href={n.href} aria-current={path === n.href ? 'page' : undefined}>{n.label}</a>)}
+        <a class="btn signal" href={SITE.applyUrl} data-track="cta_click" data-label="Apply (header)">Apply for a seat</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <slot />
+  </main>
+  {cta && <CtaBand />}
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="cols">
+        <div>
+          <a class="brand" href="/" aria-label="Flywheel home"><Mark /> Flywheel</a>
+          <p class="motto">Data stays home. Lessons travel. The wheel spins faster.</p>
+        </div>
+        <div>
+          <h4>Product</h4>
+          <ul>
+            <li><a href="/how-it-works/">How it works</a></li>
+            <li><a href="/ai-staff/">AI staff</a></li>
+            <li><a href="/pricing/">Pricing</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Community</h4>
+          <ul>
+            <li><a href="/network/">The network</a></li>
+            <li><a href="/network/#contributor-pool">Contributor pool</a></li>
+            <li><a href="/about/">About</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Talk to us</h4>
+          <ul>
+            <li><a href={SITE.applyUrl}>Apply for a founding seat</a></li>
+            <li><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+            <li><a href={`mailto:${SITE.pressEmail}`}>Press: {SITE.pressEmail}</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="legal">
+        <span>© {new Date().getFullYear()} Flywheel · {SITE.location}</span>
+        <span>Built by integrators, for integrators</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

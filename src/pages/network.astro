@@ -1,0 +1,123 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import NetworkDiagram from '../components/NetworkDiagram.astro';
+import FaqList from '../components/FaqList.astro';
+import { SITE } from '../site';
+import type { Faq } from '../schema';
+
+const layers = [
+  { n: 'Layer 01', t: 'The network', p: 'Patterns, playbooks and benchmarks from every member make every member’s staff smarter. Year one: five firms, four agents. Year three: the same four agents, hundreds of firms’ patterns and a quarterly channel benchmark nobody outside can buy.' },
+  { n: 'Layer 02', t: 'The economics', p: 'A contributor pool pays a dime of every subscription dollar back to the members whose tools did the work. Trailing referral revenue pays the members who grow the wheel. The people best placed to compete are paid to participate.' },
+  { n: 'Layer 03', t: 'The trust', p: 'Every member owns its warehouse. Data never leaves home; only lessons travel. One credential in, one revocation out.' },
+];
+
+const statement = [
+  { tool: 'Follow-up sequence', by: 'Member firm A', share: 40 },
+  { tool: 'Service triage playbook', by: 'Member firm B', share: 30 },
+  { tool: 'Permit outreach script', by: 'Member firm C', share: 20 },
+  { tool: 'QuickBooks connector', by: 'Partner builder', share: 10 },
+];
+
+const faqs: Faq[] = [
+  { q: 'What does the network share, exactly?', a: 'Patterns, playbooks and benchmarks: which follow-up cadence books meetings, which triage steps avoid a truck roll, how a firm’s numbers compare with the channel. Client records, customer names and job details never leave a member’s warehouse.' },
+  { q: 'How does the contributor pool work?', a: 'Ten percent of every subscription dollar goes into the pool. Each quarter it is split by usage among the members and builders whose tools did the work, on one statement. Usage decides value, not negotiation.' },
+  { q: 'What do members earn for referrals?', a: 'Twenty percent of a referred firm’s subscription in year one and ten percent trailing for as long as it stays a member. Channel consultants who bring firms in earn on the same terms.' },
+  { q: 'What is metro exclusivity?', a: 'Founding members are the only Flywheel firm in their metro for 12 months. Their direct competitors can’t buy a seat in that window.' },
+];
+---
+<Base title="The member network" description="How the Flywheel network works for integration firms: data stays in each member's warehouse, patterns and playbooks travel, and a contributor pool pays members whose tools the community uses." crumbs={[{ name: 'The network', url: '/network/' }]} faqs={faqs}>
+  <PageHero crumb="The network" label="The network" title="The moat is the <span class='hl'>membership.</span>" lede="Anyone can copy the agents. Nobody can copy the members. Every firm that joins makes every other firm’s staff better." />
+
+  <section class="section dark">
+    <div class="wrap net">
+      <NetworkDiagram />
+      <div>
+        <p class="label">The model</p>
+        <h2>Patterns leave. Smarter agents return. Records never do.</h2>
+        <p class="sub">Each member runs in its own isolated station. When a pattern works at one firm, it goes through a human-approved gate to the network, and comes back to every member as a better agent.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="label">Three layers</p>
+          <h2>Why the wheel gets heavier as it spins faster.</h2>
+        </div>
+      </div>
+      <div class="rows">
+        {layers.map((r) => <div class="row"><span class="n">{r.n}</span><h3>{r.t}</h3><p>{r.p}</p></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section white" id="contributor-pool">
+    <div class="wrap split">
+      <div>
+        <p class="label">The contributor pool</p>
+        <h2>Barn-raising, paid.</h2>
+        <p class="sub dark-text">Ship a tool the community uses and get paid every quarter it runs. Ten percent of every subscription dollar goes into the pool, split by usage. One statement, four lines.</p>
+      </div>
+      <figure class="stmt">
+        <div class="stmt-h"><span class="mono">Contributor pool · quarterly statement</span><span class="mono">Example</span></div>
+        <table>
+          <thead><tr><th class="mono">Tool</th><th class="mono">Built by</th><th class="mono num">Share</th></tr></thead>
+          <tbody>
+            {statement.map((s) => (
+              <tr>
+                <td>{s.tool}</td>
+                <td>{s.by}</td>
+                <td class="num"><span class="bar" style={`--w:${s.share}%`}></span>{s.share}%</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <figcaption class="mono">Usage decides value, not negotiation.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section dark">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="label">Partner circle</p>
+          <h2>Grow the wheel, get paid on it.</h2>
+        </div>
+        <p>For member firms, builders and channel consultants who bring firms in or ship tools the members use.</p>
+      </div>
+      <div class="stats">
+        <div class="stat"><b>20<small>%</small></b><span>Of a referred firm’s subscription in year one</span></div>
+        <div class="stat"><b>10<small>%</small></b><span>Trailing, for as long as they stay</span></div>
+        <div class="stat"><b>12<small>mo</small></b><span>Metro exclusivity for founding members</span></div>
+      </div>
+      <div class="actions">
+        <a class="btn signal" href={SITE.applyUrl} data-track="cta_click" data-label="Apply (partner circle)">Apply to join</a>
+      </div>
+    </div>
+  </section>
+
+  <FaqList faqs={faqs} />
+</Base>
+
+<style>
+  .net { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 56px; align-items: center; }
+  .net h2 { font-size: clamp(2rem, 4vw, 3.25rem); }
+  .sub { color: var(--line-2); margin-top: 28px; max-width: 46ch; }
+  .dark-text { color: var(--char); }
+  @media (max-width: 960px) { .net { grid-template-columns: 1fr; } .net > div { order: -1; } }
+  .stmt { margin: 0; border: 1.5px solid var(--ink); background: var(--paper); }
+  .stmt-h { display: flex; justify-content: space-between; padding: 14px 20px; background: var(--ink); color: var(--paper); }
+  .stmt-h .mono:last-child { color: var(--fog); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.98rem; }
+  th { text-align: left; font-weight: 400; color: var(--mute); padding: 16px 20px 10px; font-size: 0.66rem; }
+  td { padding: 16px 20px; border-top: 1px solid var(--line-2); vertical-align: middle; }
+  td:first-child { font-weight: 600; }
+  .num { text-align: right; white-space: nowrap; font-family: var(--mono); }
+  .bar { display: inline-block; width: 64px; height: 8px; margin-right: 12px; background: linear-gradient(to right, var(--ink) var(--w), var(--line) var(--w)); vertical-align: middle; }
+  figcaption { padding: 14px 20px; border-top: 1px solid var(--line-2); color: var(--steel); font-size: 0.68rem; }
+  @media (max-width: 560px) { td, th { padding-left: 12px; padding-right: 12px; } .bar { display: none; } }
+</style>

@@ -1,0 +1,85 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../site';
+const open = SITE.seats.total - SITE.seats.committed;
+const pains = ['Marketing', 'Follow-up and outbound', 'Service triage', 'System design and proposals', 'Back office'];
+---
+<Base title="Apply for a founding seat" description="Apply for one of the last founding seats in the Flywheel network: AI staff for your integration firm, metro exclusivity for 12 months and lifetime pricing." crumbs={[{ name: 'Apply', url: '/apply/' }]} cta={false}>
+  <section class="apply dark">
+    <div class="wrap grid">
+      <div>
+        <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Flywheel</a> / <span aria-current="page">Apply</span></nav>
+        <p class="label">{open} of {SITE.seats.total} founding seats open</p>
+        <h1>Claim a <span class="hl">founding seat.</span></h1>
+        <p class="lede">Five minutes. If your firm is a fit, you’ll get a call from an owner who runs an integration company, usually within two business days.</p>
+        <ol class="next">
+          <li><span class="mono">01</span> You apply</li>
+          <li><span class="mono">02</span> A 30-minute call, owner to owner</li>
+          <li><span class="mono">03</span> We check your metro is still open</li>
+          <li><span class="mono">04</span> Business brief and onboarding</li>
+        </ol>
+      </div>
+      <form class="form" id="apply" action={`mailto:${SITE.email}`} method="post" enctype="text/plain" data-stamp>
+        <div class="two">
+          <label>Your name<input name="name" autocomplete="name" required /></label>
+          <label>Role<input name="role" placeholder="Owner, GM, ops lead…" autocomplete="organization-title" /></label>
+        </div>
+        <label>Firm<input name="firm" autocomplete="organization" required /></label>
+        <div class="two">
+          <label>Website<input name="website" type="url" placeholder="https://" autocomplete="url" /></label>
+          <label>Metro<input name="metro" placeholder="e.g. Denver" required /></label>
+        </div>
+        <div class="two">
+          <label>Email<input name="email" type="email" autocomplete="email" required /></label>
+          <label>Team size<select name="team_size"><option>1–10</option><option>11–25</option><option>26–50</option><option>51+</option></select></label>
+        </div>
+        <fieldset>
+          <legend>Which seat would you hire first?</legend>
+          <div class="chips">
+            {pains.map((p, i) => <label class="chip"><input type="radio" name="first_seat" value={p} checked={i === 2} /><span>{p}</span></label>)}
+          </div>
+        </fieldset>
+        <label>Anything else we should know?<textarea name="notes" rows="4" placeholder="Your tool stack, what you’ve tried, what keeps you up at night."></textarea></label>
+        <button class="btn signal" type="submit" data-track="form_submit" data-label="Apply form">Send application</button>
+        <p class="mono small">Your application goes to {SITE.email}. We never share it.</p>
+      </form>
+    </div>
+  </section>
+</Base>
+
+<script is:inline>
+  // No form backend yet: compose the application as an email so nothing is lost. Swap for a Zoho Forms or CRM post at launch.
+  document.getElementById('apply').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var f = new FormData(this), lines = [];
+    f.forEach(function (v, k) { if (v) lines.push(k.replace(/_/g, ' ') + ': ' + v); });
+    location.href = 'mailto:' + this.action.replace('mailto:', '') + '?subject=' + encodeURIComponent('Founding seat application: ' + (f.get('firm') || '')) + '&body=' + encodeURIComponent(lines.join('\n'));
+  });
+</script>
+
+<style>
+  .apply { padding: clamp(56px, 8vw, 112px) 0; }
+  .grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 64px; align-items: start; }
+  h1 { font-size: clamp(2.75rem, 6vw, 5.25rem); max-width: 10ch; }
+  .lede { margin-top: 28px; color: var(--line-2); }
+  .next { list-style: none; padding: 0; margin: 48px 0 0; border-top: 1px solid var(--line-dark); }
+  .next li { display: flex; gap: 20px; padding: 16px 0; border-bottom: 1px solid var(--line-dark); }
+  .next .mono { color: var(--signal); }
+  .form { background: var(--paper); color: var(--ink); padding: clamp(24px, 4vw, 40px); display: grid; gap: 20px; border-top: 6px solid var(--signal); }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  label, legend { display: grid; gap: 8px; font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--steel); }
+  input, select, textarea { font: inherit; font-family: var(--body); font-size: 1rem; letter-spacing: 0; text-transform: none; color: var(--ink); background: var(--white); border: 1.5px solid var(--line-2); border-radius: 0; padding: 13px 14px; width: 100%; }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--ink); box-shadow: 0 0 0 3px rgba(240, 208, 0, .5); }
+  fieldset { border: 0; padding: 0; margin: 0; }
+  legend { margin-bottom: 10px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { display: inline-flex; cursor: pointer; }
+  .chip input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .chip span { padding: 10px 14px; border: 1.5px solid var(--line-2); background: var(--white); color: var(--ink); font-family: var(--body); font-size: 0.92rem; letter-spacing: 0; text-transform: none; }
+  .chip input:checked + span { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+  .chip input:focus-visible + span { outline: 2px solid var(--signal); outline-offset: 2px; }
+  .form .btn { justify-content: space-between; }
+  .small { color: var(--mute); font-size: 0.66rem; margin: 0; }
+  @media (max-width: 960px) { .grid { grid-template-columns: 1fr; } }
+  @media (max-width: 520px) { .two { grid-template-columns: 1fr; } }
+</style>

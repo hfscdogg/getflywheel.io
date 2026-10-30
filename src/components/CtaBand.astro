@@ -1,0 +1,16 @@
+---
+import { SITE } from '../site';
+const open = SITE.seats.total - SITE.seats.committed;
+---
+<section class="cta-band" aria-labelledby="cta-title">
+  <div class="wrap">
+    <div>
+      <p class="label">Founding window · {open} of {SITE.seats.total} seats open</p>
+      <h2 id="cta-title">Your firm, fully staffed.</h2>
+    </div>
+    <div>
+      <p>Tell us about your firm. If it’s a fit, you’ll talk with an owner who runs an integration company, not a sales rep.</p>
+      <a class="btn" href={SITE.applyUrl} data-track="cta_click" data-label="Apply (footer band)">Apply for a founding seat</a>
+    </div>
+  </div>
+</section>

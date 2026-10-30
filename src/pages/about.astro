@@ -1,0 +1,70 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { PROOF } from '../site';
+
+const why = [
+  { t: 'Decades of trust', p: 'In this vertical, the calls get returned. We’ve been on the other end of them since 1994.' },
+  { t: 'One tool stack', p: 'Integrators run the same systems. Build a connector once and every member on that tool gets it.' },
+  { t: 'Agents deployed', p: 'Producing in a real firm with a real P&L, not sitting on a roadmap.' },
+  { t: 'The window', p: 'The channel is going to get AI staff from someone. It should come from integrators.' },
+];
+---
+<Base title="About Flywheel" description="Flywheel was built inside Livewire, a Richmond, Virginia integration firm since 1994, and proven on its own P&L before being offered to other integrators." crumbs={[{ name: 'About', url: '/about/' }]}>
+  <PageHero crumb="About" label="About Flywheel" title="Built inside a <span class='hl'>working</span> integration firm." lede="Flywheel isn’t a software company that discovered the channel. It’s an integrator that got tired of solving the same problems alone." />
+
+  <section class="section">
+    <div class="wrap split">
+      <div>
+        <p class="label">Client zero</p>
+        <h2>We hired the staff first.</h2>
+      </div>
+      <div class="measure prose">
+        <p>Livewire has designed, installed and supported home and commercial technology in Central Virginia since 1994. Like every integrator, it ran into the same four walls: marketing that only happened when there was time, quotes that went cold, service tickets routed by the same two people and back-office blind spots nobody had hours to chase.</p>
+        <p>So we built AI employees to take that work, put them on our own payroll and held them to one number each. The ones that moved their number stayed. The ones that didn’t were rebuilt or let go.</p>
+        <p>Flywheel started in 2025 building “painkiller” tools for integrators: Lifecycle, Permit Miner and Intel Engine. In 2026 it relaunched as a community: the same agents, offered to a small group of founding firms, getting smarter with every firm that joins.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section dark">
+    <div class="wrap">
+      <p class="label">At Livewire today</p>
+      <div class="stats">
+        {PROOF.map((s) => <div class="stat"><b>{s.value}{s.unit && <small>{s.unit}</small>}</b><span>{s.label}</span></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section white">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="label">Why us, why now</p>
+          <h2>Four things a fast follower can’t buy.</h2>
+        </div>
+      </div>
+      <div class="rows">
+        {why.map((r, i) => <div class="row"><span class="n">0{i + 1}</span><h3>{r.t}</h3><p>{r.p}</p></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap split">
+      <div>
+        <p class="label">The people</p>
+        <h2>Owners, not observers.</h2>
+      </div>
+      <div class="measure prose">
+        <p><b>Henry Clifford</b>, co-founder, runs Livewire, the firm where every Flywheel agent goes to work first.</p>
+        <p>Flywheel’s product council is made up of the owners of its founding member firms. They decide what gets built next, because they’re the ones who have to run it on Monday.</p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .prose p { color: var(--char); }
+  .prose p:first-child { font-size: 1.2rem; color: var(--ink); }
+</style>

@@ -1,0 +1,13 @@
+---
+interface Props { label: string; title: string; lede: string; crumb: string }
+const { label, title, lede, crumb } = Astro.props;
+---
+<section class="page-hero dark">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Flywheel</a> / <span aria-current="page">{crumb}</span></nav>
+    <p class="label">{label}</p>
+    <h1 set:html={title} />
+    <p class="lede">{lede}</p>
+    <slot />
+  </div>
+</section>

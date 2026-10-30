@@ -1,0 +1,42 @@
+---
+// An AI employee shown the way the deck sells it: a staff badge, not a feature card.
+interface Props { seat: string; role: string; line: string; moves: string; reports: string; duties?: string[] }
+const { seat, role, line, moves, reports, duties } = Astro.props;
+---
+<article class="badge">
+  <header>
+    <span class="mono">Seat {seat}</span>
+    <span class="mono status">On staff</span>
+  </header>
+  <div class="body">
+    <h3>{role}</h3>
+    <p class="line">{line}</p>
+    {duties && <ul>{duties.map((d) => <li>{d}</li>)}</ul>}
+  </div>
+  <dl>
+    <div class="full"><dt class="mono">Moves one number</dt><dd>{moves}</dd></div>
+    <div class="full"><dt class="mono">Reports to</dt><dd>{reports}</dd></div>
+    <div><dt class="mono">Name</dt><dd>Yours to choose</dd></div>
+    <div><dt class="mono">Probation</dt><dd>90 days</dd></div>
+  </dl>
+</article>
+
+<style>
+  .badge { display: flex; flex-direction: column; background: var(--white); border: 1.5px solid var(--ink); color: var(--ink); min-height: 100%; }
+  header { display: flex; justify-content: space-between; align-items: center; padding: 14px 20px; background: var(--ink); color: var(--paper); }
+  .status { display: inline-flex; align-items: center; gap: 8px; color: var(--signal); }
+  .status::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--signal); }
+  .body { padding: 28px 20px 8px; flex: 1; }
+  h3 { font-size: clamp(1.75rem, 2.6vw, 2.25rem); }
+  .line { margin: 12px 0 0; color: var(--char); }
+  ul { list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 10px; font-size: 0.95rem; color: var(--steel); }
+  li { padding-left: 18px; position: relative; }
+  li::before { content: ''; position: absolute; left: 0; top: 0.62em; width: 8px; height: 1.5px; background: var(--ink); }
+  dl { margin: 20px 0 0; border-top: 1px dashed var(--line-2); display: grid; grid-template-columns: 1fr 1fr; }
+  dl div { padding: 12px 20px; border-bottom: 1px solid var(--line); }
+  dl .full { grid-column: 1 / -1; }
+  dl div:nth-last-child(-n + 2) { border-bottom: 0; }
+  dl div:last-child { border-left: 1px solid var(--line); }
+  dt { color: var(--mute); font-size: 0.64rem; margin-bottom: 4px; }
+  dd { margin: 0; font-size: 0.92rem; font-weight: 600; line-height: 1.35; }
+</style>
