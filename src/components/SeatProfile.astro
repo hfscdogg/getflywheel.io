@@ -1,0 +1,26 @@
+---
+// One seat on the AI staff, written up the way an owner would write up a job.
+interface Props { role: string; line: string; moves: string; reports: string; duties?: string[] }
+const { role, line, moves, reports, duties } = Astro.props;
+---
+<article class="seat">
+  <h3>{role}</h3>
+  <p class="line">{line}</p>
+  {duties && <ul>{duties.map((d) => <li>{d}</li>)}</ul>}
+  <dl>
+    <div><dt>Measured on</dt><dd>{moves}</dd></div>
+    <div><dt>Reports to</dt><dd>{reports}</dd></div>
+  </dl>
+</article>
+
+<style>
+  .seat { padding-top: 24px; border-top: 2px solid var(--ink); display: flex; flex-direction: column; }
+  h3 { font-size: 1.75rem; }
+  .line { margin: 8px 0 0; font-size: 1.1rem; color: var(--ink-soft); }
+  @media (min-width: 1081px) { .line { min-height: 3.3em; } }
+  ul { margin: 18px 0 0; padding-left: 1.1em; display: grid; gap: 6px; color: var(--ink-soft); }
+  li::marker { color: var(--slate); }
+  dl { margin: 20px 0 0; display: grid; gap: 14px; }
+  dt { font-size: 0.85rem; color: var(--mute); }
+  dd { margin: 2px 0 0; font-weight: 600; line-height: 1.35; }
+</style>

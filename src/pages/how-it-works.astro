@@ -2,82 +2,68 @@
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import FaqList from '../components/FaqList.astro';
-import { SITE } from '../site';
 import type { Faq } from '../schema';
 
 const onboarding = [
-  { n: 'Week 1', t: 'Business brief', p: 'Thirty minutes on the work you want, the markets you serve, the brands you sell and the jobs you turn down. Every agent reads it before it does anything for you. Blank beats a guess; anything you don’t know, we audit.' },
-  { n: 'Week 1', t: 'Your warehouse', p: 'A secure data warehouse is created in your firm’s name, in your own cloud account. It pulls from the systems you already run, such as QuickBooks, your CRM, ticketing, Google Analytics and Search Console.' },
-  { n: 'Week 2', t: 'One credential', p: 'You issue Flywheel a single read credential. That is the entire surface area. Firing us is one revocation.' },
-  { n: 'Week 2', t: 'Baseline', p: 'Before an agent touches anything, we record where the number it owns stands today, so the 90-day probation is measured against something real.' },
-  { n: 'Week 3', t: 'First day on the job', p: 'Your new hire is introduced to the team by name, gets a manager on your staff and starts posting its work where your team already talks, by text or in Slack.' },
-  { n: 'Weekly', t: 'A brief, and an approver', p: 'Each seat sends a weekly brief: what it did, what it recommends and what it needs. A named person on your team approves anything that goes out. Nothing acts without a human yes.' },
+  { when: 'Week 1', t: 'Business brief', p: 'Thirty minutes on the work you want, the markets you serve, the brands you sell and the jobs you turn down. Every AI employee reads it before it does anything for you. If you don’t know an answer, leave it blank and we’ll find out.' },
+  { when: 'Week 1', t: 'Your warehouse', p: 'We create a secure data warehouse in your firm’s name, in your own cloud account. It pulls from the systems you already run: QuickBooks, your CRM and ticketing, Google Analytics and Search Console.' },
+  { when: 'Week 2', t: 'One login', p: 'You give Flywheel a single read-only login. That’s all the access we have, and you can revoke it in one click.' },
+  { when: 'Week 2', t: 'Baseline', p: 'Before an AI employee touches anything, we record where its number stands today, so the 90-day probation is measured against something real.' },
+  { when: 'Week 3', t: 'First day on the job', p: 'Your new hire is introduced to the team by name, gets a manager on your staff and starts posting its work where your team already talks, by text or in Slack.' },
+  { when: 'Every week', t: 'A brief and an approver', p: 'Each seat sends a weekly brief: what it did, what it recommends and what it needs. A named person on your team approves anything before it goes out.' },
 ];
 
 const trust = [
-  { n: '01', t: 'You own it', p: 'The warehouse is in your firm’s name from day one, in your cloud account.' },
-  { n: '02', t: 'One credential', p: 'You issue it to us. Readers are read-only by role, not by convention.' },
-  { n: '03', t: 'One revocation', p: 'Firing us takes a single click, and nothing is copied out to come back for.' },
-  { n: '04', t: 'Opt-in network', p: 'Network participation is opt-in, seat by seat. Aggregates are never sliced thin enough to expose a member.' },
+  { t: 'You own it', p: 'The warehouse is in your firm’s name from day one, in your own cloud account.' },
+  { t: 'One login', p: 'You issue it to us. Our access is read-only by role, not by promise.' },
+  { t: 'One click to leave', p: 'Revoke the login and we’re out. Nothing was copied out, so there’s nothing to ask for back.' },
+  { t: 'Sharing is opt-in', p: 'You choose, seat by seat, whether to share patterns with the network. Shared numbers are never cut thin enough to identify a member.' },
 ];
 
 const faqs: Faq[] = [
-  { q: 'How long does it take to get started?', a: 'Most firms have their warehouse, credential and baseline in place within two weeks, and their first AI employee working in week three. The business brief takes about 30 minutes.' },
-  { q: 'Does an agent ever act without approval?', a: 'No. Every seat sends its work to a named approver on your team. Nothing is posted, sent or changed without a human yes.' },
-  { q: 'Can other members see my data?', a: 'No. Each firm runs in its own isolated station with its own warehouse and credentials. No process can load two firms at once. Only anonymized patterns and playbooks travel to the network, through a human-approved gate.' },
-  { q: 'What systems does Flywheel work with?', a: 'The staff reads from the tools integrators already run, including QuickBooks, common CRMs, ticketing and remote monitoring, Google Analytics, Google Ads, Search Console and call tracking. When Flywheel builds a connector for one member, every member on that tool gets it.' },
+  { q: 'How long does it take to get started?', a: 'Most firms have their warehouse, login and baseline in place within two weeks, and their first AI employee working in week three. The business brief takes about 30 minutes.' },
+  { q: 'Does an AI employee ever act without approval?', a: 'No. Every seat sends its work to a named approver on your team. Nothing is posted, sent or changed without a person saying yes.' },
+  { q: 'Can other members see my data?', a: 'No. Each firm runs separately with its own warehouse and its own login, and nothing in Flywheel can open two firms at once. Only anonymized patterns go to the network, and only after a person approves them.' },
+  { q: 'What systems does Flywheel work with?', a: 'The tools integrators already run, including QuickBooks, common CRMs, ticketing and remote monitoring, Google Analytics, Google Ads, Search Console and call tracking. When Flywheel builds a connector for one member, every member on that tool gets it.' },
 ];
 ---
-<Base title="How it works" description="How a custom integration firm gets started with Flywheel: a business brief, a data warehouse in your name, one credential, a measured baseline and AI staff that report to a human approver." crumbs={[{ name: 'How it works', url: '/how-it-works/' }]} faqs={faqs}>
-  <PageHero crumb="How it works" label="How it works" title="Own your data. <span class='hl'>Hire</span> your staff. Join the network." lede="Three steps, about three weeks, and no software to build or host. You keep the data, the customers and the final say." />
+<Base title="How it works" description="How a custom integration firm gets started with Flywheel: a business brief, a data warehouse in your name, one login, a measured baseline and AI staff that report to a person on your team." crumbs={[{ name: 'How it works', url: '/how-it-works/' }]} faqs={faqs}>
+  <PageHero crumb="How it works" title="Three weeks from brief to first day on the job." lede="No software to build or host. You keep the data, the customers and the final say." />
 
-  <section class="section">
+  <section class="band">
     <div class="wrap">
-      <div class="head">
-        <div>
-          <p class="label">Onboarding</p>
-          <h2>From brief to first day on the job.</h2>
-        </div>
+      <div class="intro">
+        <h2>Onboarding</h2>
         <p>The same onboarding Livewire went through as client zero, tightened with each founding firm.</p>
       </div>
-      <div class="rows timeline">
-        {onboarding.map((r) => <div class="row"><span class="n">{r.n}</span><h3>{r.t}</h3><p>{r.p}</p></div>)}
-      </div>
+      <ol class="timeline">
+        {onboarding.map((r) => <li><span class="when">{r.when}</span><h3>{r.t}</h3><p>{r.p}</p></li>)}
+      </ol>
     </div>
   </section>
 
-  <section class="section dark" id="trust">
+  <section class="bone band" id="trust">
     <div class="wrap">
-      <div class="head">
-        <div>
-          <p class="label">Trust architecture</p>
-          <h2>Patterns travel. Records never do.</h2>
-        </div>
-        <p>Think of a franchise kitchen. Flywheel writes one recipe book. Each firm gets its own station with its own ingredients. Improve the recipe once and every station benefits. No station can reach into another’s pantry.</p>
+      <div class="intro">
+        <h2>Your records never leave your warehouse.</h2>
+        <p>Flywheel works like a franchise kitchen. We write one recipe book. Each firm cooks at its own station with its own ingredients. When the recipe improves, every station gets it, and no station can reach into another’s pantry.</p>
       </div>
-      <div class="trust">
-        {trust.map((t) => <div><span class="mono">{t.n}</span><h3>{t.t}</h3><p>{t.p}</p></div>)}
+      <div class="items">
+        {trust.map((t) => <div><h3>{t.t}</h3><p>{t.p}</p></div>)}
       </div>
     </div>
   </section>
 
-  <section class="section white">
-    <div class="wrap split">
-      <div>
-        <p class="label">Lease or build</p>
-        <h2>Two ways to run it.</h2>
+  <section class="band">
+    <div class="wrap">
+      <div class="intro">
+        <h2>Lease it or own it.</h2>
       </div>
-      <div class="two">
-        <div>
-          <h3>Lease</h3>
-          <p>We staff it and run it, monthly. The playbook improves for every member at once, and your seats get the upgrade without anyone on your team lifting a finger.</p>
-        </div>
-        <div>
-          <h3>Build</h3>
-          <p>You own it outright and we hand over the keys. For firms with their own technical people who want the agents running entirely in-house.</p>
-        </div>
-        <a class="textlink" href="/pricing/">See pricing</a>
+      <div class="items">
+        <div><h3>Lease</h3><p>We staff it and run it, month to month. When the playbook improves, your seats get the update without anyone on your team lifting a finger.</p></div>
+        <div><h3>Build</h3><p>You own it outright and we hand over the keys. For firms with their own technical people who want the AI staff running entirely in-house.</p></div>
       </div>
+      <p class="after"><a class="more" href="/pricing/">See pricing</a></p>
     </div>
   </section>
 
@@ -85,17 +71,11 @@ const faqs: Faq[] = [
 </Base>
 
 <style>
-  .timeline .row .n { color: var(--slate); font-weight: 700; }
-  .trust { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1.5px solid var(--paper); }
-  .trust > div { padding: 28px 28px 0 0; }
-  .trust > div + div { padding-left: 28px; border-left: 1px solid var(--line-dark); }
-  .trust .mono { color: var(--signal); }
-  .trust h3 { margin: 18px 0 12px; }
-  .trust p { color: var(--line-2); margin: 0; }
-  @media (max-width: 900px) { .trust { grid-template-columns: 1fr 1fr; } .trust > div:nth-child(3) { padding-left: 0; border-left: 0; } .trust > div { padding-bottom: 28px; } }
-  @media (max-width: 560px) { .trust { grid-template-columns: 1fr; } .trust > div + div { padding-left: 0; border-left: 0; border-top: 1px solid var(--line-dark); } }
-  .two { display: grid; gap: 32px; }
-  .two h3 { margin-bottom: 10px; }
-  .two p { margin: 0; color: var(--char); max-width: 56ch; }
-  .two .textlink { justify-self: start; }
+  .timeline { list-style: none; margin: 0; padding: 0; }
+  .timeline li { display: grid; grid-template-columns: 140px minmax(0, 4fr) minmax(0, 7fr); gap: 8px 32px; padding: 24px 0; border-top: 1px solid var(--rule); align-items: baseline; }
+  .timeline li:last-child { border-bottom: 1px solid var(--rule); }
+  .when { font-weight: 600; color: var(--slate); }
+  .timeline p { margin: 0; color: var(--ink-soft); }
+  @media (max-width: 760px) { .timeline li { grid-template-columns: 1fr; } }
+  .after { margin: 32px 0 0; }
 </style>

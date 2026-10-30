@@ -14,7 +14,7 @@ export const organization = {
   '@id': ORG,
   name: 'Flywheel',
   url: ROOT,
-  logo: { '@type': 'ImageObject', '@id': `${ROOT}#logo`, url: `${ROOT}brand/mark-512.png`, width: 512, height: 512, caption: 'Flywheel' },
+  logo: { '@type': 'ImageObject', '@id': `${ROOT}#logo`, url: `${ROOT}brand/icon-512.jpg`, width: 512, height: 512, caption: 'Flywheel' },
   image: { '@id': `${ROOT}#logo` },
   slogan: 'Data stays home. Lessons travel. The wheel spins faster.',
   description: SITE.description,

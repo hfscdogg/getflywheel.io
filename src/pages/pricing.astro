@@ -6,16 +6,16 @@ import { SITE } from '../site';
 import type { Faq } from '../schema';
 
 const plans = [
-  { tier: 'Good', name: 'One hire', price: 749, line: 'Pick the seat that hurts most.', items: ['Any one seat: Marketing, Outbound or Support', 'Weekly brief to your approver', 'Network patterns and playbooks'] },
-  { tier: 'Better', name: 'Three hires', price: 1749, line: 'The core staff, plus your own warehouse.', items: ['Marketing, Outbound and Support', 'Your data warehouse, in your name', 'Weekly brief per seat', 'Network patterns and benchmarks'], featured: true },
-  { tier: 'Best', name: 'Full staff', price: 3499, line: 'Every seat, and a quarterly sit-down.', items: ['All four seats, System Designer included', 'Your data warehouse, in your name', 'Quarterly numbers review with the owner', 'Network patterns and benchmarks'] },
+  { name: 'One hire', price: 749, line: 'Start with the seat that hurts most.', items: ['Any one seat: Marketing, Outbound or Support', 'A weekly brief to your approver', 'Patterns and playbooks from the network'] },
+  { name: 'Three hires', price: 1749, line: 'The core staff, plus your own warehouse.', items: ['Marketing, Outbound and Support', 'A data warehouse in your firm’s name', 'A weekly brief from each seat', 'Network patterns and benchmarks'], featured: true },
+  { name: 'Full staff', price: 3499, line: 'Every seat, and a quarterly sit-down with the owner.', items: ['All four seats, including System Designer', 'A data warehouse in your firm’s name', 'A quarterly numbers review with the owner', 'Network patterns and benchmarks'] },
 ];
 
 const faqs: Faq[] = [
-  { q: 'Is there a setup fee?', a: 'Yes. Every account has a one-time $4,999 setup fee, which covers the business brief, the warehouse build, connecting your systems and the baseline each seat is measured against.' },
-  { q: 'How long is the commitment?', a: 'A 90-day initial term, matching each seat’s probation, then month to month.' },
+  { q: 'Is there a setup fee?', a: 'Yes. Every account has a one-time $4,999 setup fee, which covers the business brief, building the warehouse, connecting your systems and the baseline each seat is measured against.' },
+  { q: 'How long is the commitment?', a: 'A 90-day first term, matching each seat’s probation, then month to month.' },
   { q: 'Why price by headcount?', a: 'Because that’s the comparison an owner actually makes. A seat costs a fraction of a hire’s salary and benefits, starts in weeks instead of months and doesn’t leave for the competitor down the street.' },
-  { q: 'What do founding members pay?', a: 'Founding members lock in lifetime pricing, plus metro exclusivity for 12 months, a seat on the product council and referral revenue on every firm they bring in.' },
+  { q: 'What do founding members pay?', a: 'Founding members lock in their price for life, plus 12 months as the only Flywheel firm in their metro, a vote on what gets built next and referral income on every firm they bring in.' },
 ];
 
 const offers = plans.map((p) => ({
@@ -25,28 +25,28 @@ const offers = plans.map((p) => ({
 }));
 const schema = [{ '@type': 'Service', '@id': `${SITE.url}pricing/#service`, name: 'Flywheel AI staff for integrators', serviceType: 'AI employees for custom integration firms', provider: { '@id': `${SITE.url}#organization` }, offers }];
 ---
-<Base title="Pricing" description="Flywheel pricing for custom integration firms: One hire at $749 a month, Three hires with your own data warehouse at $1,749, or the Full staff at $3,499. One-time $4,999 setup. 90-day term, then month to month." crumbs={[{ name: 'Pricing', url: '/pricing/' }]} faqs={faqs} schema={schema}>
-  <PageHero crumb="Pricing" label="Pricing" title="Sold by headcount. <span class='hl'>Priced against payroll.</span>" lede="Compare a seat with what a hire costs in salary, benefits, training and turnover. Then pick the seat that hurts most." />
+<Base title="Pricing" description="Flywheel pricing for custom integration firms: One hire at $749 a month, Three hires with your own data warehouse at $1,749, or the Full staff at $3,499. One-time $4,999 setup. 90-day first term, then month to month." crumbs={[{ name: 'Pricing', url: '/pricing/' }]} faqs={faqs} schema={schema}>
+  <PageHero crumb="Pricing" title="Priced by the seat, compared against payroll." lede="Put a seat next to what a hire costs you in salary, benefits, training and turnover. Then pick the seat that hurts most." />
 
-  <section class="section">
+  <section class="band">
     <div class="wrap">
       <div class="plans">
         {plans.map((p) => (
           <article class:list={['plan', { featured: p.featured }]}>
-            <p class="mono tier">{p.tier}{p.featured && <span> · Most firms start here</span>}</p>
+            <p class="flag" aria-hidden={p.featured ? undefined : 'true'}>{p.featured ? 'Where most firms start' : '\u00a0'}</p>
             <h2>{p.name}</h2>
             <p class="line">{p.line}</p>
-            <p class="price"><b>${p.price.toLocaleString('en-US')}</b><span class="mono">/ month</span></p>
+            <p class="price"><b>${p.price.toLocaleString('en-US')}</b> a month</p>
             <ul>{p.items.map((i) => <li>{i}</li>)}</ul>
-            <a class:list={['btn', { signal: p.featured }]} href={SITE.applyUrl} data-track="cta_click" data-label={`Apply (${p.name})`}>Apply</a>
+            <a class:list={['btn', { primary: p.featured }]} href={SITE.applyUrl} data-track="cta_click" data-label={`Apply (${p.name})`}>Apply</a>
           </article>
         ))}
       </div>
-      <div class="fine">
-        <p><b>One-time setup: $4,999.</b> Business brief, warehouse build, connections and baseline.</p>
-        <p><b>Term:</b> 90 days to start, then month to month.</p>
-        <p><b>Lease or build:</b> we run it monthly, or you own it outright and we hand over the keys.</p>
-      </div>
+      <dl class="terms">
+        <div><dt>Setup</dt><dd>$4,999 once: business brief, warehouse, connections and baseline.</dd></div>
+        <div><dt>Term</dt><dd>90 days to start, then month to month.</dd></div>
+        <div><dt>Lease or build</dt><dd>We run it monthly, or you own it outright and we hand over the keys.</dd></div>
+      </dl>
     </div>
   </section>
 
@@ -54,25 +54,20 @@ const schema = [{ '@type': 'Service', '@id': `${SITE.url}pricing/#service`, name
 </Base>
 
 <style>
-  .plans { display: grid; grid-template-columns: repeat(3, 1fr); border: 1.5px solid var(--ink); }
-  .plan { display: flex; flex-direction: column; padding: 36px 32px; background: var(--white); }
-  .plan + .plan { border-left: 1px solid var(--line-2); }
-  .plan.featured { background: var(--ink); color: var(--paper); }
-  .tier { color: var(--steel); margin: 0 0 20px; }
-  .featured .tier { color: var(--signal); }
-  .plan h2 { font-size: clamp(2.25rem, 3.6vw, 3rem); }
-  .line { margin: 12px 0 0; color: var(--char); min-height: 3.2em; }
-  .featured .line { color: var(--line-2); }
-  .price { margin: 32px 0 0; padding: 24px 0; border-top: 1px solid var(--line-2); border-bottom: 1px solid var(--line-2); display: flex; align-items: baseline; gap: 10px; }
-  .featured .price { border-color: var(--line-dark); }
-  .price b { font-family: var(--display); font-weight: 500; font-size: 3.5rem; line-height: 1; }
-  .price .mono { color: var(--mute); }
-  ul { list-style: none; padding: 0; margin: 24px 0 32px; display: grid; gap: 12px; flex: 1; }
-  li { padding-left: 24px; position: relative; font-size: 0.98rem; }
-  li::before { content: ''; position: absolute; left: 0; top: 0.45em; width: 10px; height: 10px; background: var(--signal); }
-  .plan .btn { justify-content: space-between; }
-  .featured .btn:not(.signal) { border-color: var(--paper); }
-  .fine { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px 40px; margin-top: 40px; color: var(--char); font-size: 0.98rem; }
-  .fine p { margin: 0; padding-top: 16px; border-top: 1px solid var(--line-2); }
-  @media (max-width: 900px) { .plans, .fine { grid-template-columns: 1fr; } .plan + .plan { border-left: 0; border-top: 1px solid var(--line-2); } }
+  .plans { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; align-items: stretch; }
+  .plan { display: flex; flex-direction: column; padding: 32px 28px; background: var(--white); border: 1px solid var(--rule); border-radius: 2px; }
+  .plan.featured { border: 2px solid var(--ink); box-shadow: 8px 8px 0 var(--yellow); }
+  .flag { margin: 0 0 12px; font-size: 0.875rem; font-weight: 600; color: var(--slate); }
+  .plan h2 { font-size: 2rem; }
+  .line { margin: 8px 0 0; color: var(--ink-soft); min-height: 3.2em; }
+  .price { margin: 24px 0 0; padding: 20px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); color: var(--mute); font-variant-numeric: tabular-nums; }
+  .price b { font-family: var(--head); font-size: 2.75rem; color: var(--ink); margin-right: 4px; }
+  ul { margin: 20px 0 28px; padding-left: 1.1em; display: grid; gap: 8px; flex: 1; }
+  li::marker { color: var(--slate); }
+  .plan .btn { align-self: flex-start; }
+  .terms { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin: 48px 0 0; }
+  .terms div { padding-top: 16px; border-top: 1px solid var(--rule); }
+  .terms dt { font-weight: 600; }
+  .terms dd { margin: 4px 0 0; color: var(--ink-soft); }
+  @media (max-width: 900px) { .plans, .terms { grid-template-columns: 1fr; } .line { min-height: 0; } }
 </style>

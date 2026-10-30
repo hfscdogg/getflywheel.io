@@ -1,11 +1,9 @@
 ---
-import '@fontsource-variable/oswald/wght.css';
+import '@fontsource/zilla-slab/latin-700.css';
+import '@fontsource/zilla-slab/latin-600-italic.css';
 import '@fontsource-variable/hanken-grotesk/wght.css';
-import '@fontsource/space-mono/400.css';
-import '@fontsource/space-mono/700.css';
 import '../styles/global.css';
 import Analytics from '../components/Analytics.astro';
-import Mark from '../components/Mark.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { SITE } from '../site';
 import { graph, type Faq } from '../schema';
@@ -35,7 +33,7 @@ const ld = graph({ canonical, title: fullTitle, description, image, crumbs, faqs
   <meta name="description" content={description} />
   <link rel="canonical" href={canonical} />
   {noindex && <meta name="robots" content="noindex,follow" />}
-  <meta name="theme-color" content="#141414" />
+  <meta name="theme-color" content="#f1eee6" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Flywheel" />
   <meta property="og:title" content={fullTitle} />
@@ -45,8 +43,8 @@ const ld = graph({ canonical, title: fullTitle, description, image, crumbs, faqs
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <link rel="apple-touch-icon" href="/brand/mark-512.png" />
+  <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
+  <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png" />
   <link rel="alternate" type="text/plain" href="/llms.txt" title="Flywheel for language models" />
   <script type="application/ld+json" set:html={JSON.stringify(ld)} />
   <Analytics />
@@ -55,11 +53,11 @@ const ld = graph({ canonical, title: fullTitle, description, image, crumbs, faqs
   <a class="skip" href="#main">Skip to content</a>
   <header class="site-header">
     <div class="wrap">
-      <a class="brand" href="/" aria-label="Flywheel home"><Mark /> Flywheel</a>
+      <a class="brand" href="/"><img src="/brand/flywheel-horizontal-black.png" alt="Flywheel" width="147" height="32" /></a>
       <button class="menu-toggle" aria-controls="nav" aria-expanded="false" onclick="var n=document.getElementById('nav');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))">Menu</button>
       <nav id="nav" class="site-nav" aria-label="Main">
         {SITE.nav.map((n) => <a href={n.href} aria-current={path === n.href ? 'page' : undefined}>{n.label}</a>)}
-        <a class="btn signal" href={SITE.applyUrl} data-track="cta_click" data-label="Apply (header)">Apply for a seat</a>
+        <a class="btn primary" href={SITE.applyUrl} data-track="cta_click" data-label="Apply (header)">Apply for a seat</a>
       </nav>
     </div>
   </header>
@@ -71,8 +69,8 @@ const ld = graph({ canonical, title: fullTitle, description, image, crumbs, faqs
     <div class="wrap">
       <div class="cols">
         <div>
-          <a class="brand" href="/" aria-label="Flywheel home"><Mark /> Flywheel</a>
-          <p class="motto">Data stays home. Lessons travel. The wheel spins faster.</p>
+          <a class="brand" href="/"><img src="/brand/flywheel-horizontal-yellow.png" alt="Flywheel" width="129" height="28" /></a>
+          <p class="motto">AI staff for custom integration firms, and a network of integrators who share what works. Built in Richmond, Virginia, inside Livewire.</p>
         </div>
         <div>
           <h4>Product</h4>
@@ -91,17 +89,17 @@ const ld = graph({ canonical, title: fullTitle, description, image, crumbs, faqs
           </ul>
         </div>
         <div>
-          <h4>Talk to us</h4>
+          <h4>Contact</h4>
           <ul>
             <li><a href={SITE.applyUrl}>Apply for a founding seat</a></li>
             <li><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
-            <li><a href={`mailto:${SITE.pressEmail}`}>Press: {SITE.pressEmail}</a></li>
+            <li><a href={`mailto:${SITE.pressEmail}`}>{SITE.pressEmail}</a></li>
           </ul>
         </div>
       </div>
       <div class="legal">
-        <span>© {new Date().getFullYear()} Flywheel · {SITE.location}</span>
-        <span>Built by integrators, for integrators</span>
+        <span>© {new Date().getFullYear()} Flywheel</span>
+        <span>Richmond, Virginia</span>
       </div>
     </div>
   </footer>

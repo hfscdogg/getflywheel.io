@@ -1,16 +1,46 @@
 ---
+// The closing call to action, and the founding-seat count it rests on.
 import { SITE } from '../site';
 const open = SITE.seats.total - SITE.seats.committed;
+const seats = [
+  { name: 'Livewire', note: 'Client zero, Richmond', taken: true },
+  { name: 'Founding firm', note: 'Named at launch', taken: true },
+  { name: 'Founding firm', note: 'Named at launch', taken: true },
+  { name: 'Seat four', note: 'Open', taken: false },
+  { name: 'Seat five', note: 'Open', taken: false },
+];
 ---
-<section class="cta-band" aria-labelledby="cta-title">
-  <div class="wrap">
+<section class="cta yellow band" aria-labelledby="cta-title">
+  <div class="wrap grid">
     <div>
-      <p class="label">Founding window · {open} of {SITE.seats.total} seats open</p>
-      <h2 id="cta-title">Your firm, fully staffed.</h2>
+      <h2 id="cta-title">{open === 2 ? 'Two' : open} founding seats are left.</h2>
+      <p class="lede">Founding firms get their metro to themselves for 12 months, lifetime pricing, a vote on what gets built next and referral income on every firm they bring in. The window closes at launch.</p>
+      <div class="actions">
+        <a class="btn" href={SITE.applyUrl} data-track="cta_click" data-label="Apply (closing band)">Apply for a founding seat</a>
+      </div>
     </div>
-    <div>
-      <p>Tell us about your firm. If it’s a fit, you’ll talk with an owner who runs an integration company, not a sales rep.</p>
-      <a class="btn" href={SITE.applyUrl} data-track="cta_click" data-label="Apply (footer band)">Apply for a founding seat</a>
-    </div>
+    <ol class="seats" aria-label="Founding seats">
+      {seats.map((s) => (
+        <li class:list={{ open: !s.taken }}>
+          <img src="/brand/wheel-ink.png" alt="" width="28" height="29" loading="lazy" />
+          <span class="name">{s.name}</span>
+          <span class="note">{s.note}</span>
+        </li>
+      ))}
+    </ol>
   </div>
 </section>
+
+<style>
+  .grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 48px 80px; align-items: center; }
+  .lede { color: var(--ink); margin-top: 20px; max-width: 44ch; }
+  .seats { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--ink); }
+  .seats li { display: grid; grid-template-columns: 28px 1fr auto; gap: 16px; align-items: center; padding: 14px 0; border-bottom: 1px solid rgba(30, 30, 30, .25); }
+  .seats img { width: 28px; height: auto; }
+  .name { font-family: var(--head); font-weight: 700; font-size: 1.25rem; }
+  .note { font-size: 0.9rem; }
+  .open img { opacity: .25; }
+  .open .name { color: rgba(30, 30, 30, .6); }
+  .open .note { font-weight: 700; }
+  @media (max-width: 860px) { .grid { grid-template-columns: 1fr; } }
+</style>

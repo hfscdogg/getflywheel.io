@@ -1,64 +1,59 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
-import StaffBadge from '../components/StaffBadge.astro';
+import SeatProfile from '../components/SeatProfile.astro';
 import FaqList from '../components/FaqList.astro';
-import { SITE, STAFF, TOOLS } from '../site';
+import { STAFF, TOOLS } from '../site';
 import type { Faq } from '../schema';
 
 const rules = [
-  { t: 'A name', p: 'You pick it. Your team introduces it in the group chat like any new hire.' },
+  { t: 'A name', p: 'You pick it, and your team introduces it in the group chat like any new hire.' },
   { t: 'A job description', p: 'Written from your business brief, so it works on the jobs you want and skips the ones you don’t.' },
-  { t: 'One number it moves', p: 'Not a dashboard of vanity metrics. One number, baselined before day one.' },
-  { t: 'A human manager', p: 'Someone on your team approves its work and owns its review.' },
-  { t: '90-day probation', p: 'If it doesn’t move its number, you let it go. Same as anyone else.' },
+  { t: 'One number to move', p: 'One number, measured before day one. Not a dashboard.' },
+  { t: 'A manager', p: 'Someone on your team approves its work and owns its review.' },
+  { t: 'A 90-day probation', p: 'If it doesn’t move its number, you let it go, the same as anyone else.' },
 ];
 
 const faqs: Faq[] = [
-  { q: 'How does my team talk to an AI employee?', a: 'By text, or in Slack if your team lives there. Each seat has a name and a number, and your team messages it like any coworker. It answers, asks for approval when it needs one and posts a weekly brief.' },
-  { q: 'Which seat should we start with?', a: 'The one that hurts most. Firms drowning in after-hours service usually start with Support. Firms with a full pipeline of unanswered quotes start with Outbound. The One hire plan lets you start with any single seat.' },
-  { q: 'Will the agents replace people on my team?', a: 'They take the work nobody has time for: the follow-up, the first response, the weekly post, the first-pass design. Your people manage them and keep the relationships and the judgment calls.' },
+  { q: 'How does my team talk to an AI employee?', a: 'By text, or in Slack if your team lives there. Each seat has a name and a number, and your team messages it like any coworker. It answers, asks for approval when it needs it and sends a weekly brief.' },
+  { q: 'Which seat should we start with?', a: 'The one that hurts most. Firms buried in after-hours service usually start with Support. Firms with a stack of unanswered quotes start with Outbound. The One hire plan lets you start with any single seat.' },
+  { q: 'Will these replace people on my team?', a: 'They take the work nobody has time for: the follow-up, the first response, the weekly post, the first-pass design. Your people manage them and keep the relationships and the judgment calls.' },
 ];
 ---
-<Base title="AI staff for integrators" description="Meet Flywheel's AI employees for custom integration firms: Marketing, Outbound, Support and System Designer. Each has a name, a job description, one number it moves, a human manager and a 90-day probation." crumbs={[{ name: 'AI staff', url: '/ai-staff/' }]} faqs={faqs}>
-  <PageHero crumb="AI staff" label="The staff" title="Four seats. <span class='hl'>One number</span> each." lede="Flywheel’s AI employees are hired, managed and reviewed like people, because that’s how an owner already knows how to run a team." />
+<Base title="AI staff for integrators" description="Flywheel's AI employees for custom integration firms: Marketing, Outbound, Support and System Designer. Each has a name, a job description, one number it moves, a manager on your team and a 90-day probation." crumbs={[{ name: 'AI staff', url: '/ai-staff/' }]} faqs={faqs}>
+  <PageHero crumb="AI staff" title="Four seats, each measured on one number." lede="Flywheel’s AI employees are hired, managed and reviewed like people, because that’s how an owner already knows how to run a team." />
 
-  <section class="section">
-    <div class="wrap">
-      <div class="badges">
-        {STAFF.map((s) => <StaffBadge {...s} />)}
-      </div>
+  <section class="band">
+    <div class="wrap seats">
+      {STAFF.map((s) => <SeatProfile {...s} />)}
     </div>
   </section>
 
-  <section class="section white">
-    <div class="wrap">
-      <div class="head">
-        <div>
-          <p class="label">Onboarded like people</p>
-          <h2>Every hire gets five things.</h2>
-        </div>
-        <p>It’s the difference between a tool your team ignores and a coworker they rely on.</p>
+  <section class="bone band">
+    <div class="wrap pair">
+      <div>
+        <h2>Every hire gets the same five things.</h2>
+        <p class="lede">It’s the difference between a tool your team ignores and a coworker they rely on.</p>
       </div>
-      <div class="rows">
-        {rules.map((r, i) => <div class="row"><span class="n">0{i + 1}</span><h3>{r.t}</h3><p>{r.p}</p></div>)}
-      </div>
+      <dl class="rules">
+        {rules.map((r) => <div><dt>{r.t}</dt><dd>{r.p}</dd></div>)}
+      </dl>
     </div>
   </section>
 
-  <section class="section dark">
-    <div class="wrap">
-      <div class="head">
-        <div>
-          <p class="label">The tools they use</p>
-          <h2>Painkillers, built by integrators.</h2>
+  <section class="band">
+    <div class="wrap pair flip">
+      <figure class="photo">
+        <img src="/photos/patch-panel.jpg" alt="A neatly terminated network patch panel with blue cables, installed by Livewire" width="1024" height="1024" loading="lazy" />
+      </figure>
+      <div>
+        <h2>The tools they use were built by integrators.</h2>
+        <p class="lede">Members built these for their own firms first. Build one the community uses and you’re paid every quarter it runs.</p>
+        <div class="items one">
+          {TOOLS.map((t) => <div><h3>{t.name}</h3><p>{t.line}</p></div>)}
         </div>
-        <p>The staff works with tools members built for their own firms first. Ship one the community uses and you get paid every quarter it runs.</p>
+        <p class="after"><a class="more" href="/network/#contributor-pool">How the contributor pool works</a></p>
       </div>
-      <div class="tools">
-        {TOOLS.map((t) => <div><h3>{t.name}</h3><p>{t.line}</p></div>)}
-      </div>
-      <p class="after"><a class="textlink" href="/network/#contributor-pool">How the contributor pool pays builders</a></p>
     </div>
   </section>
 
@@ -66,13 +61,15 @@ const faqs: Faq[] = [
 </Base>
 
 <style>
-  .badges { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-  @media (max-width: 760px) { .badges { grid-template-columns: 1fr; } }
-  .tools { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1.5px solid var(--paper); }
-  .tools > div { padding: 28px 28px 0 0; }
-  .tools > div + div { padding-left: 28px; border-left: 1px solid var(--line-dark); }
-  .tools h3 { color: var(--signal); margin-bottom: 12px; }
-  .tools p { color: var(--line-2); margin: 0; }
-  @media (max-width: 760px) { .tools { grid-template-columns: 1fr; } .tools > div, .tools > div + div { padding: 24px 0; border-left: 0; border-bottom: 1px solid var(--line-dark); } }
-  .after { margin: 48px 0 0; }
+  .seats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 56px 64px; }
+  @media (max-width: 760px) { .seats { grid-template-columns: 1fr; } }
+  .pair .lede { margin-top: 20px; }
+  .pair { align-items: start; }
+  .rules { margin: 0; }
+  .rules div { padding: 18px 0; border-top: 1px solid var(--rule); }
+  .rules div:last-child { border-bottom: 1px solid var(--rule); }
+  .rules dt { font-family: var(--head); font-weight: 700; font-size: 1.3rem; }
+  .rules dd { margin: 4px 0 0; color: var(--ink-soft); }
+  .items.one { grid-template-columns: 1fr; margin-top: 28px; }
+  .after { margin: 28px 0 0; }
 </style>

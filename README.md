@@ -9,22 +9,28 @@ The home page runs the seven beats in order:
 
 | Beat | Section |
 |---|---|
-| A character who wants something | Hero: "Your firm, fully staffed." |
-| Has a problem (external, internal, philosophical) | 01 The problem: four jobs, doing it all yourself, lessons dying inside four walls |
-| Meets a guide (empathy + authority) | 02 We run an integration firm too: Livewire, client zero, since 1994 |
-| Who gives them a plan | 03 Three steps: own your warehouse, hire your staff, join the network |
-| And calls them to action | Apply for a founding seat (direct), See how it works (transitional) |
-| That helps them avoid failure | 06 What's at stake: "If nothing changes" |
-| And ends in success | 06 "With a Flywheel staff", plus the closing band |
+| A character who wants something | Hero: "Your firm, fully staffed." beside a Livewire technician on a job |
+| Has a problem (external, internal, philosophical) | The four jobs that pile up, the owner doing all of them, lessons that stay inside one firm |
+| Meets a guide (empathy and authority) | "We run an integration firm too": Livewire since 1994, plus the client-zero numbers |
+| Who gives them a plan | Three steps: own your data, hire the seat that hurts most, join the network |
+| And calls them to action | Apply for a founding seat (direct); How it works (transitional) |
+| That helps them avoid failure | "If nothing changes" |
+| And ends in success | "With a Flywheel staff", then the founding-seats band |
 
 Source material: the Flywheel partner pitch deck (Aug 2026), the relaunch media advisory draft and the
 flywheel-kitchen architecture docs.
 
 ## Design
 
-Taken from the partner deck: near-black `#141414`, warm paper `#faf9f6`, one signal yellow `#f0d000`,
-slate `#506080`; Oswald for display, Hanken Grotesk for reading, Space Mono for labels and numbers. Tokens are
-in `src/styles/global.css`. Fonts are self-hosted (`@fontsource`), so there are no third-party requests.
+- Logos and palette come from the Flywheel brand files (`brand/source/`, Feb 2025). `python3 scripts/brand.py`
+  builds the small web copies in `public/brand/` and the favicon from those masters.
+- Palette: ink `#1e1e1e`, yellow `#f5d500`, slate `#495e7d`, with oxblood `#7d4949`, mist `#8ba8b6` and bone
+  `#e2ddcf` in support. Yellow and slate are used as whole sections, not small accents.
+- Type: Zilla Slab for headings, in sentence case (its slab serifs echo the wordmark), and Hanken Grotesk for
+  reading. Both are self-hosted, so there are no third-party font requests.
+- Photos in `public/photos/` are Livewire's own, from the getlivewire.com image library. Higher-resolution
+  originals, and photos from founding firms, would sharpen the hero.
+- Numbering is used only where order matters (the three steps, the onboarding weeks).
 
 ## SEO and AI answer engines
 
@@ -50,13 +56,13 @@ npm run dev       # http://localhost:4321
 npm run build     # static output in dist/
 ```
 
-`scripts/og.cjs` re-renders `public/og.png` and `public/brand/mark-512.png` (needs `npx astro preview` running).
+`scripts/og.cjs` re-renders the share image, `public/og.png` (needs `npx astro preview` running).
 
 ## Before launch
 
 - Confirm the client zero numbers (47 / 3 min / 34) are current and OK to publish.
 - Founding firms are not named; the advisory draft says to confirm permission first. Names go in
-  `src/pages/index.astro` (seats) and `src/components/NetworkDiagram.astro`.
+  `src/components/CtaBand.astro` and `src/components/NetworkDiagram.astro`.
 - Pricing is published from the deck. Confirm it should be public.
 - `hello@getflywheel.io` is a placeholder inbox; `press@` is from the advisory.
 - The apply form has no backend yet; it composes an email. Point it at Zoho Forms or the CRM.

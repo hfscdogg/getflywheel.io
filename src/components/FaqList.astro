@@ -1,14 +1,11 @@
 ---
 import type { Faq } from '../schema';
-interface Props { faqs: Faq[]; label?: string; title?: string }
-const { faqs, label = 'Questions', title = 'What owners ask us first' } = Astro.props;
+interface Props { faqs: Faq[]; title?: string }
+const { faqs, title = 'Questions owners ask first' } = Astro.props;
 ---
-<section class="section" id="faq">
-  <div class="wrap split">
-    <div>
-      <p class="label">{label}</p>
-      <h2>{title}</h2>
-    </div>
+<section class="band" id="faq">
+  <div class="wrap faq-wrap">
+    <h2>{title}</h2>
     <div class="faq">
       {faqs.map((f) => (
         <details>
