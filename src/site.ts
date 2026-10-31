@@ -16,6 +16,7 @@ export const SITE = {
     { label: 'How it works', href: '/how-it-works/' },
     { label: 'AI staff', href: '/ai-staff/' },
     { label: 'The network', href: '/network/' },
+    { label: 'Community', href: '/community/' },
     { label: 'Pricing', href: '/pricing/' },
     { label: 'About', href: '/about/' },
   ],

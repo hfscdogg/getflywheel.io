@@ -19,15 +19,15 @@ const firms = [
     <title id="net-title">How the Flywheel network works</title>
     <desc id="net-desc">Five member firms sit around the Flywheel wheel. Each firm keeps its records in its own warehouse. Patterns, playbooks and benchmarks go to the network, and better agents come back to every firm.</desc>
     <defs>
-      <marker id="tip" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" fill="#495e7d" /></marker>
+      <marker id="tip" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" fill="#3e5a7a" /></marker>
     </defs>
     {firms.map((f) => (
-      <line x1={f.from.x} y1={f.from.y} x2={f.to.x} y2={f.to.y} stroke="#495e7d" stroke-width="2" stroke-dasharray={f.state === 'open' ? '5 6' : undefined} opacity={f.state === 'open' ? 0.45 : 1} marker-start="url(#tip)" marker-end="url(#tip)" />
+      <line x1={f.from.x} y1={f.from.y} x2={f.to.x} y2={f.to.y} stroke="#3e5a7a" stroke-width="2" stroke-dasharray={f.state === 'open' ? '5 6' : undefined} opacity={f.state === 'open' ? 0.45 : 1} marker-start="url(#tip)" marker-end="url(#tip)" />
     ))}
-    <image href="/brand/wheel-ink.png" x={C - 118} y={C - 121} width="236" height="242" />
+    <image href="/brand/flywheel-symbol-color.svg" x={C - 130} y={C - 130} width="260" height="260" />
     {firms.map((f) => (
       <g transform={`translate(${f.box.x - 110} ${f.box.y - 52})`}>
-        <rect width="220" height="104" rx="2" fill={f.state === 'lit' ? '#f5d500' : f.state === 'open' ? 'none' : '#fbfaf7'} stroke={f.state === 'open' ? '#8f897b' : '#1e1e1e'} stroke-width="1.5" stroke-dasharray={f.state === 'open' ? '5 5' : undefined} />
+        <rect width="220" height="104" rx="2" fill={f.state === 'lit' ? '#f2c200' : f.state === 'open' ? 'none' : '#fbfaf7'} stroke={f.state === 'open' ? '#8f897b' : '#1f2a36'} stroke-width="1.5" stroke-dasharray={f.state === 'open' ? '5 5' : undefined} />
         <text x="16" y="44" class:list={['firm', { dim: f.state === 'open' }]}>{f.name}</text>
         <text x="16" y="76" class="note">{f.state === 'open' ? 'Open founding seat' : 'Records stay here'}</text>
       </g>
@@ -42,7 +42,7 @@ const firms = [
 <style>
   .net { margin: 0; }
   svg { width: 100%; max-width: 620px; margin: 0 auto; display: block; }
-  .firm { font-family: var(--head); font-weight: 700; font-size: 28px; fill: #1e1e1e; }
+  .firm { font-family: var(--head); font-weight: 700; font-size: 28px; fill: #1f2a36; }
   .firm.dim { fill: #8f897b; }
   .note { font-family: var(--body); font-size: 19px; fill: #3d3b37; }
   figcaption { margin: 20px auto 0; max-width: 46ch; text-align: center; font-size: 0.9rem; color: var(--mute); }

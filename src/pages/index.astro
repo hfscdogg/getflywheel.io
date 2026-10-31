@@ -149,6 +149,47 @@ const faqs: Faq[] = [
     </div>
   </section>
 
+  <!-- The community, from the enablement deck -->
+  <section class="band community" id="community">
+    <div class="wrap">
+      <div class="intro">
+        <h2>The Flywheel spins faster with every firm that joins.</h2>
+        <p>Named AI employees you text like staff. A network where patterns travel and customer records never do. A contributor pool that pays the members whose tools everyone uses. Livewire is client zero.</p>
+      </div>
+      <ul class="points">
+        <li>
+          <h3>Four seats</h3>
+          <p>Marketing, Outbound, Support and System Designer. Each gets a name, a job description, one number to move, a human manager and a 90-day probation.</p>
+        </li>
+        <li>
+          <h3>Your records stay put</h3>
+          <p>Patterns, playbooks and benchmarks travel. Each member owns its warehouse. One credential in, one revocation out and each seat opts in on its own.</p>
+        </li>
+        <li>
+          <h3>Barn-raising, paid</h3>
+          <p>Ten percent of every subscription dollar is paid each quarter to the members whose tools the community uses.</p>
+        </li>
+        <li>
+          <h3>Five founding seats</h3>
+          <p>{SITE.seats.total - SITE.seats.committed} are still open, and the window closes at launch. Referral cash, 12 months alone in your metro, a product council seat and lifetime pricing.</p>
+        </li>
+        <li>
+          <h3>Partner circle</h3>
+          <p>Builders and consultants can join, refer a firm and get paid when the community uses what they build.</p>
+        </li>
+        <li>
+          <h3>Good, Better, Best</h3>
+          <p>One hire is $749 a month, three hires are $1,749 and the full staff is $3,499. Lease or build. Setup is $4,999 once.</p>
+        </li>
+      </ul>
+      <div class="actions">
+        <a class="btn primary" href={SITE.applyUrl} data-track="cta_click" data-label="Apply (community)">Apply for a founding seat</a>
+        <a class="btn quiet" href={`mailto:${SITE.email}`}>Talk to us</a>
+      </div>
+      <p class="after"><a class="more" href="/community/">How the community works</a></p>
+    </div>
+  </section>
+
   <!-- What's at stake -->
   <section class="band">
     <div class="wrap">
@@ -196,6 +237,11 @@ const faqs: Faq[] = [
   @media (max-width: 1080px) { .seats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (max-width: 600px) { .seats { grid-template-columns: 1fr; } }
   .after { margin: 40px 0 0; }
+  .community { border-bottom: 1px solid var(--rule); }
+  .points { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 32px 56px; }
+  .points h3 { margin-bottom: 8px; }
+  .points p { margin: 0; color: var(--ink-soft); }
+  @media (max-width: 760px) { .points { grid-template-columns: 1fr; } }
 
   .net h2 { margin-bottom: 24px; }
   .net .more { display: inline-block; margin-top: 8px; }

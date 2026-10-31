@@ -43,8 +43,11 @@ const ld = graph({ canonical, title: fullTitle, description, image, crumbs, faqs
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
-  <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
-  <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+  <link rel="icon" href="/favicon-16.png" type="image/png" sizes="16x16" />
+  <link rel="icon" href="/favicon-48.png" type="image/png" sizes="48x48" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
   <link rel="alternate" type="text/plain" href="/llms.txt" title="Flywheel for language models" />
   <script type="application/ld+json" set:html={JSON.stringify(ld)} />
   <Analytics />
@@ -53,7 +56,7 @@ const ld = graph({ canonical, title: fullTitle, description, image, crumbs, faqs
   <a class="skip" href="#main">Skip to content</a>
   <header class="site-header">
     <div class="wrap">
-      <a class="brand" href="/"><img src="/brand/flywheel-horizontal-black.png" alt="Flywheel" width="147" height="32" /></a>
+      <a class="brand" href="/"><img src="/brand/flywheel-horizontal-color.svg" alt="Flywheel" width="975" height="400" /></a>
       <button class="menu-toggle" aria-controls="nav" aria-expanded="false" onclick="var n=document.getElementById('nav');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))">Menu</button>
       <nav id="nav" class="site-nav" aria-label="Main">
         {SITE.nav.map((n) => <a href={n.href} aria-current={path === n.href ? 'page' : undefined}>{n.label}</a>)}
@@ -69,7 +72,7 @@ const ld = graph({ canonical, title: fullTitle, description, image, crumbs, faqs
     <div class="wrap">
       <div class="cols">
         <div>
-          <a class="brand" href="/"><img src="/brand/flywheel-horizontal-yellow.png" alt="Flywheel" width="129" height="28" /></a>
+          <a class="brand" href="/"><img src="/brand/flywheel-horizontal-white.svg" alt="Flywheel" width="975" height="400" /></a>
           <p class="motto">AI staff for custom integration firms, and a network of integrators who share what works. Built in Richmond, Virginia, inside Livewire.</p>
         </div>
         <div>
@@ -84,6 +87,7 @@ const ld = graph({ canonical, title: fullTitle, description, image, crumbs, faqs
           <h4>Community</h4>
           <ul>
             <li><a href="/network/">The network</a></li>
+            <li><a href="/community/">The community</a></li>
             <li><a href="/network/#contributor-pool">Contributor pool</a></li>
             <li><a href="/about/">About</a></li>
           </ul>

@@ -22,10 +22,11 @@ flywheel-kitchen architecture docs.
 
 ## Design
 
-- Logos and palette come from the Flywheel brand files (`brand/source/`, Feb 2025). `python3 scripts/brand.py`
-  builds the small web copies in `public/brand/` and the favicon from those masters.
-- Palette: ink `#1e1e1e`, yellow `#f5d500`, slate `#495e7d`, with oxblood `#7d4949`, mist `#8ba8b6` and bone
-  `#e2ddcf` in support. Yellow and slate are used as whole sections, not small accents.
+- Logos are the concept 12 kit in `brand/source/` (October 2026). `python3 scripts/brand.py` copies them
+  into `public/brand/` and writes the favicon and apple touch icon.
+- Palette accents: ink `#1f2a36`, Momentum Yellow `#f2c200`, Steel Blue `#3e5a7a`, with Slate `#6b7785` and
+  Mist `#e8edf2`. Oxblood `#7d4949` and bone `#e2ddcf` stay in support. Yellow and steel blue are used as
+  whole sections, not small accents.
 - Type: Zilla Slab for headings, in sentence case (its slab serifs echo the wordmark), and Hanken Grotesk for
   reading. Both are self-hosted, so there are no third-party font requests.
 - Photos in `public/photos/` are Livewire's own, from the getlivewire.com image library. Higher-resolution
