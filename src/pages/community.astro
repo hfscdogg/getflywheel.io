@@ -1,0 +1,149 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import FaqList from '../components/FaqList.astro';
+import { SITE, STAFF } from '../site';
+import type { Faq } from '../schema';
+
+const open = SITE.seats.total - SITE.seats.committed;
+const plans = [
+  { name: 'Good', line: 'One hire', price: '$749' },
+  { name: 'Better', line: 'Three hires', price: '$1,749' },
+  { name: 'Best', line: 'Full staff', price: '$3,499' },
+];
+const trust = [
+  { t: 'You own the warehouse', p: 'It sits in your firm’s name. Customer records never leave it.' },
+  { t: 'One credential in', p: 'You issue a single login. That’s the only way Flywheel gets in.' },
+  { t: 'One revocation out', p: 'Revoke it and we’re out. Nothing was copied, so there’s nothing to claw back.' },
+  { t: 'Opt in per seat', p: 'You choose, seat by seat, whether patterns from that hire are shared.' },
+];
+const perks = [
+  { t: 'Referral cash', p: '20% of a referred firm’s subscription in year one and 10% for as long as it stays.' },
+  { t: 'Metro exclusivity', p: '12 months as the only Flywheel firm in your metro.' },
+  { t: 'Product council', p: 'A seat at the table when the next thing gets built.' },
+  { t: 'Lifetime pricing', p: 'The price you start at is the price you keep.' },
+];
+const faqs: Faq[] = [
+  { q: 'What do members share?', a: 'Patterns, playbooks and benchmarks. Customer records, names and job details stay in the warehouse that member owns.' },
+  { q: 'How does the contributor pool work?', a: 'Ten percent of every subscription dollar goes into the pool. Each quarter it’s paid to the members whose tools the community actually uses.' },
+  { q: 'Who is the partner circle for?', a: 'Builders and consultants. Refer a firm and you earn on the same terms as a member. Build a tool the community uses and the pool pays you for it.' },
+  { q: 'What does a founding seat include?', a: 'Referral cash of 20% in year one and 10% trailing, 12 months alone in your metro, a product council seat and lifetime pricing. Five seats in total. The window closes at launch.' },
+];
+---
+<Base title="The community" description="The Flywheel spins faster with every firm that joins. Named AI employees for integrators, a member network that shares patterns and never records, a contributor pool and a founding window that closes at launch." crumbs={[{ name: 'Community', url: '/community/' }]} faqs={faqs}>
+  <PageHero crumb="Community" title="The Flywheel spins faster with every firm that joins." lede="Named AI employees your team texts like staff, and a network that makes every member’s staff better. Livewire, a working integration firm, is client zero.">
+    <div class="actions">
+      <a class="btn primary" href={SITE.applyUrl} data-track="cta_click" data-label="Apply (community)">Apply for a founding seat</a>
+      <a class="btn quiet" href={`mailto:${SITE.email}`}>Talk to us</a>
+    </div>
+  </PageHero>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="intro">
+        <h2>Four seats you can text.</h2>
+        <p>Marketing, Outbound, Support and System Designer. You name each one and write the job with us. Each seat moves one number, reports to a person on your team and starts on a 90-day probation. If it doesn’t move that number, you let it go.</p>
+      </div>
+      <div class="seats">
+        {STAFF.map((s) => (
+          <article>
+            <h3>{s.role}</h3>
+            <p>{s.line}</p>
+            <p class="meta"><span>Moves</span> {s.moves}</p>
+            <p class="meta"><span>Reports to</span> {s.reports}</p>
+          </article>
+        ))}
+      </div>
+      <p class="after"><a class="more" href="/ai-staff/">What each seat does</a></p>
+    </div>
+  </section>
+
+  <section class="bone band">
+    <div class="wrap">
+      <div class="intro">
+        <h2>Patterns travel. Records never do.</h2>
+        <p>What the network shares is the lesson: the follow-up that books the meeting, the triage step that saves a truck roll, the benchmark that shows where you stand. The customer file stays home.</p>
+      </div>
+      <div class="items">
+        {trust.map((r) => <div><h3>{r.t}</h3><p>{r.p}</p></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap pair">
+      <div>
+        <h2>Barn-raising, paid.</h2>
+        <p class="lede">Ten percent of every subscription dollar goes into the contributor pool. Each quarter it’s paid to the members whose tools the community uses.</p>
+        <p class="measure">The people best placed to build the next tool are paid to build it, instead of competing with it.</p>
+      </div>
+      <div>
+        <h2>The partner circle.</h2>
+        <p class="lede">Builders and consultants can join alongside member firms.</p>
+        <p class="measure">Refer a firm and you earn 20% of its subscription in year one and 10% for as long as it stays. Build something the community uses and you’re paid from the pool.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slate band">
+    <div class="wrap">
+      <div class="intro">
+        <h2>{open === 1 ? 'One founding seat is' : `${open} founding seats are`} still open.</h2>
+        <p>Five seats in the founding window. It closes at launch. After that, the perks below are gone.</p>
+      </div>
+      <div class="perks">
+        {perks.map((r) => <div><h3>{r.t}</h3><p>{r.p}</p></div>)}
+      </div>
+      <div class="actions">
+        <a class="btn primary" href={SITE.applyUrl} data-track="cta_click" data-label="Apply (founding)">Apply for a founding seat</a>
+        <a class="btn quiet" href={`mailto:${SITE.email}`}>Talk to us</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="intro">
+        <h2>Good, Better and Best.</h2>
+        <p>Priced by the seat. Lease it month to month, or build it and take the keys. Setup is $4,999 once, on every plan.</p>
+      </div>
+      <div class="plans">
+        {plans.map((p) => (
+          <article>
+            <p class="flag">{p.name}</p>
+            <h3>{p.line}</h3>
+            <p class="price"><b>{p.price}</b> a month</p>
+          </article>
+        ))}
+      </div>
+      <p class="after"><a class="more" href="/pricing/">See what each plan includes</a></p>
+    </div>
+  </section>
+
+  <FaqList faqs={faqs} title="Questions about the community" />
+</Base>
+
+<style>
+  .seats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; }
+  .seats article { padding-top: 20px; border-top: 2px solid var(--ink); }
+  .seats h3 { font-size: 1.5rem; }
+  .seats p { margin: 10px 0 0; color: var(--ink-soft); }
+  .meta { font-weight: 600; color: var(--ink); }
+  .meta span { display: block; font-weight: 600; font-size: 0.8rem; color: var(--mute); }
+  .after { margin: 36px 0 0; }
+  .pair { align-items: start; }
+  .pair h2 + .lede { margin-top: 16px; }
+  .perks { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 48px; }
+  .perks h3 { margin-bottom: 8px; }
+  .perks p { margin: 0; }
+  .plans { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+  .plans article { padding: 28px 24px; background: var(--white); border: 1px solid var(--rule); border-radius: 2px; }
+  .flag { margin: 0 0 8px; font-size: 0.875rem; font-weight: 600; color: var(--slate); }
+  .plans h3 { font-size: 1.75rem; }
+  .price { margin: 16px 0 0; color: var(--mute); }
+  .price b { font-family: var(--head); font-size: 2.5rem; color: var(--ink); margin-right: 4px; }
+  @media (max-width: 980px) { .seats { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 760px) {
+    .seats, .perks, .plans { grid-template-columns: 1fr; }
+  }
+</style>

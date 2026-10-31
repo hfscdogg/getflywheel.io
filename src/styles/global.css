@@ -1,18 +1,18 @@
-/* Flywheel. Colors are the brand palette from FLYWHEEL_BRAND_ASSETS (Feb 2025). The wordmark is a rugged
-   slab, so headings use a slab serif in sentence case and leave the shouting to the logo. Yellow and slate
-   appear as whole fields, not as small accents. */
+/* Flywheel concept 12 (October 2026). Ink, Momentum Yellow, Steel Blue, Slate and Mist replace the
+   previous brand accents. Paper, bone and oxblood stay as site surfaces. Headings stay in a slab so the
+   wordmark can live in the logo. Yellow and steel blue appear as whole fields, not as small accents. */
 :root {
-  --ink: #1e1e1e;
+  --ink: #1f2a36;
   --ink-soft: #3d3b37;
-  --mute: #6f6a5f;
+  --mute: #6b7785;
   --paper: #f1eee6;
   --bone: #e2ddcf;
   --rule: #cdc6b4;
   --white: #fbfaf7;
-  --slate: #495e7d;
-  --mist: #8ba8b6;
+  --slate: #3e5a7a;
+  --mist: #e8edf2;
   --oxblood: #7d4949;
-  --yellow: #f5d500;
+  --yellow: #f2c200;
 
   --head: 'Zilla Slab', 'Rockwell', 'Roboto Slab', Georgia, serif;
   --body: 'Hanken Grotesk Variable', 'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -51,7 +51,7 @@ h3 { font-size: 1.4rem; line-height: 1.2; }
 .btn { display: inline-flex; align-items: center; justify-content: center; font-family: var(--body); font-weight: 600; font-size: 1rem; text-decoration: none; padding: 15px 24px; border-radius: 3px; border: 2px solid var(--ink); background: var(--ink); color: var(--white); transition: background .15s ease, color .15s ease; }
 .btn:hover { background: var(--ink-soft); border-color: var(--ink-soft); }
 .btn.primary { background: var(--yellow); border-color: var(--yellow); color: var(--ink); }
-.btn.primary:hover { background: #ffe233; border-color: #ffe233; }
+.btn.primary:hover { background: color-mix(in srgb, var(--yellow) 82%, white); border-color: color-mix(in srgb, var(--yellow) 82%, white); }
 .btn.quiet { background: transparent; color: inherit; border-color: currentColor; }
 .btn.quiet:hover { background: var(--ink); color: var(--white); border-color: var(--ink); }
 .slate .btn.quiet:hover { background: var(--white); color: var(--slate); border-color: var(--white); }
@@ -61,9 +61,10 @@ h3 { font-size: 1.4rem; line-height: 1.2; }
 
 /* header */
 .site-header { position: sticky; top: 0; z-index: 40; background: var(--paper); border-bottom: 1px solid var(--rule); }
-.site-header .wrap { display: flex; align-items: center; justify-content: space-between; height: 76px; gap: 24px; }
-.brand { display: inline-flex; align-items: center; text-decoration: none; }
-.brand img { height: 32px; width: auto; }
+.site-header .wrap { display: flex; align-items: center; justify-content: space-between; height: 84px; gap: 24px; }
+.brand { display: inline-flex; align-items: center; flex: none; text-decoration: none; }
+/* Horizontal lockup minimum is 120px wide. The SVG already includes its clear space. */
+.brand img { width: 168px; height: auto; }
 .site-nav { display: flex; align-items: center; gap: 28px; }
 .site-nav a { font-weight: 500; font-size: 0.98rem; text-decoration: none; }
 .site-nav a:hover { text-decoration: underline; }
@@ -71,9 +72,9 @@ h3 { font-size: 1.4rem; line-height: 1.2; }
 .site-nav .btn { padding: 10px 18px; font-size: 0.95rem; }
 .site-nav .btn:hover { text-decoration: none; }
 .menu-toggle { display: none; background: none; border: 1.5px solid var(--ink); border-radius: 3px; font: 600 0.9rem var(--body); color: var(--ink); padding: 8px 14px; cursor: pointer; }
-@media (max-width: 960px) {
+@media (max-width: 1120px) {
   .menu-toggle { display: block; }
-  .site-nav { display: none; position: absolute; top: 76px; left: 0; right: 0; background: var(--paper); border-bottom: 1px solid var(--rule); flex-direction: column; align-items: stretch; gap: 0; padding: 4px var(--gutter) 24px; }
+  .site-nav { display: none; position: absolute; top: 84px; left: 0; right: 0; background: var(--paper); border-bottom: 1px solid var(--rule); flex-direction: column; align-items: stretch; gap: 0; padding: 4px var(--gutter) 24px; }
   .site-nav.open { display: flex; }
   .site-nav a { padding: 15px 0; border-bottom: 1px solid var(--rule); font-size: 1.05rem; }
   .site-nav .btn { margin-top: 20px; }
@@ -131,7 +132,7 @@ h3 { font-size: 1.4rem; line-height: 1.2; }
 /* footer */
 .site-footer { background: var(--ink); color: #c9c4b8; padding-block: 64px 36px; font-size: 0.95rem; }
 .site-footer .cols { display: grid; grid-template-columns: minmax(0, 5fr) repeat(3, minmax(0, 2fr)); gap: 40px; padding-bottom: 48px; border-bottom: 1px solid #3a3936; }
-.site-footer .brand img { height: 28px; }
+.site-footer .brand img { width: 168px; }
 .site-footer .motto { margin: 20px 0 0; max-width: 30ch; }
 .site-footer h4 { font-size: 0.875rem; font-weight: 600; color: var(--white); margin: 0 0 14px; }
 .site-footer ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }

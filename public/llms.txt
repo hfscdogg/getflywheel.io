@@ -12,6 +12,7 @@
 - [How it works](https://www.getflywheel.io/how-it-works/): onboarding, the data warehouse each firm owns, the trust architecture
 - [AI staff](https://www.getflywheel.io/ai-staff/): the Marketing, Outbound, Support and System Designer seats, and the tools they use (Lifecycle, Permit Miner, Intel Engine)
 - [The network](https://www.getflywheel.io/network/): how patterns travel between members, the contributor pool and referral terms
+- [Community](https://www.getflywheel.io/community/): named AI staff, the member network, the contributor pool, the partner circle and the founding window
 - [Pricing](https://www.getflywheel.io/pricing/): plans, setup and terms
 - [About](https://www.getflywheel.io/about/): the client zero story at Livewire
 - [Apply](https://www.getflywheel.io/apply/): apply for a founding seat

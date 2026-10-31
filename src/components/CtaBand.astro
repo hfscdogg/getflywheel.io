@@ -22,7 +22,7 @@ const seats = [
     <ol class="seats" aria-label="Founding seats">
       {seats.map((s) => (
         <li class:list={{ open: !s.taken }}>
-          <img src="/brand/wheel-ink.png" alt="" width="28" height="29" loading="lazy" />
+          <img src="/brand/favicon.svg" alt="" width="28" height="28" loading="lazy" />
           <span class="name">{s.name}</span>
           <span class="note">{s.note}</span>
         </li>
@@ -35,12 +35,12 @@ const seats = [
   .grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 48px 80px; align-items: center; }
   .lede { color: var(--ink); margin-top: 20px; max-width: 44ch; }
   .seats { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--ink); }
-  .seats li { display: grid; grid-template-columns: 28px 1fr auto; gap: 16px; align-items: center; padding: 14px 0; border-bottom: 1px solid rgba(30, 30, 30, .25); }
+  .seats li { display: grid; grid-template-columns: 28px 1fr auto; gap: 16px; align-items: center; padding: 14px 0; border-bottom: 1px solid rgba(31, 42, 54, .25); }
   .seats img { width: 28px; height: auto; }
   .name { font-family: var(--head); font-weight: 700; font-size: 1.25rem; }
   .note { font-size: 0.9rem; }
   .open img { opacity: .25; }
-  .open .name { color: rgba(30, 30, 30, .6); }
+  .open .name { color: rgba(31, 42, 54, .6); }
   .open .note { font-weight: 700; }
   @media (max-width: 860px) { .grid { grid-template-columns: 1fr; } }
 </style>
