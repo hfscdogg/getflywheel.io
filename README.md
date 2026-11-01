@@ -66,5 +66,5 @@ npm run build     # static output in dist/
   `src/components/CtaBand.astro` and `src/components/NetworkDiagram.astro`.
 - Pricing is published from the deck. Confirm it should be public.
 - `hello@getflywheel.io` is a placeholder inbox; `press@` is from the advisory.
-- The apply form has no backend yet; it composes an email. Point it at Zoho Forms or the CRM.
+- The apply form posts to `SITE.applyEndpoint` when that Apps Script URL is set, and composes an email until then.
 - GA4 measurement id is `G-65GBJRVRP3` in `src/site.ts`.

@@ -20,7 +20,7 @@ const next = [
         <h2 class="h3">What happens next</h2>
         <ol class="next">{next.map((n) => <li>{n}</li>)}</ol>
       </div>
-      <form class="form" id="apply" action={`mailto:${SITE.email}`} method="post" enctype="text/plain" data-stamp>
+      <form class="form" id="apply" action={`mailto:${SITE.email}`} method="post" enctype="text/plain" data-stamp data-endpoint={SITE.applyEndpoint}>
         <div class="two">
           <label for="f-name">Your name<input id="f-name" name="name" autocomplete="name" required /></label>
           <label for="f-role">Your role<input id="f-role" name="role" placeholder="Owner, GM, operations…" autocomplete="organization-title" /></label>
@@ -41,20 +41,43 @@ const next = [
           </div>
         </fieldset>
         <label for="f-notes">Anything else we should know?<textarea id="f-notes" name="notes" rows="4" placeholder="Your tool stack, what you’ve tried, what keeps you up at night."></textarea></label>
+        <input class="hp" name="company_url" type="text" tabindex="-1" aria-hidden="true" autocomplete="off" />
         <button class="btn primary" type="submit" data-track="form_submit" data-label="Apply form">Send application</button>
-        <p class="small">Your application goes to {SITE.email} and isn’t shared with anyone.</p>
+        <p class="error" hidden>That didn’t send. Email <a href={`mailto:${SITE.email}`}>{SITE.email}</a> and we’ll take it from here.</p>
+        <p class="small">We read every application. It isn’t shared with anyone.</p>
       </form>
     </div>
   </section>
 </Base>
 
 <script is:inline>
-  // No form backend yet: compose the application as an email so nothing is lost. Swap for a Zoho Forms or CRM post at launch.
+  // Posts to the Apps Script when SITE.applyEndpoint is set. Until then, compose the same email as before.
   document.getElementById('apply').addEventListener('submit', function (e) {
     e.preventDefault();
-    var f = new FormData(this), lines = [];
-    f.forEach(function (v, k) { if (v) lines.push(k.replace(/_/g, ' ') + ': ' + v); });
-    location.href = 'mailto:' + this.action.replace('mailto:', '') + '?subject=' + encodeURIComponent('Founding seat application: ' + (f.get('firm') || '')) + '&body=' + encodeURIComponent(lines.join('\n'));
+    var form = this;
+    var data = new FormData(form);
+    var endpoint = (form.dataset.endpoint || '').trim();
+    if (!endpoint) {
+      var lines = [];
+      data.forEach(function (v, k) { if (v) lines.push(k.replace(/_/g, ' ') + ': ' + v); });
+      location.href = 'mailto:' + form.action.replace('mailto:', '') + '?subject=' + encodeURIComponent('Founding seat application: ' + (data.get('firm') || '')) + '&body=' + encodeURIComponent(lines.join('\n'));
+      return;
+    }
+    var button = form.querySelector('button[type="submit"]');
+    var error = form.querySelector('.error');
+    if (error) error.hidden = true;
+    button.disabled = true;
+    button.textContent = 'Sending…';
+    fetch(endpoint, { method: 'POST', mode: 'no-cors', body: new URLSearchParams(data) })
+      .then(function () {
+        form.innerHTML = '<p class="thanks-title">Application received.</p><p>An owner who runs an integration company will reach out within two business days.</p>';
+        form.setAttribute('role', 'status');
+      })
+      .catch(function () {
+        button.disabled = false;
+        button.textContent = 'Send application';
+        if (error) error.hidden = false;
+      });
   });
 </script>
 
@@ -79,7 +102,13 @@ const next = [
   .choice input:checked + span { background: var(--ink); border-color: var(--ink); color: var(--white); }
   .choice input:focus-visible + span { outline: 3px solid var(--slate); outline-offset: 2px; }
   .form .btn { justify-self: start; }
-  .small { margin: 0; }
+  .form .btn:disabled { opacity: 0.65; cursor: progress; }
+  .small, .error { margin: 0; }
+  .error { color: var(--oxblood); }
+  .error a { color: inherit; }
+  :global(.thanks-title) { font-family: var(--head); font-weight: 700; font-size: 1.75rem; margin: 0 0 12px; }
+  :global(.form[role='status'] p) { margin: 0; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
   @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
   @media (max-width: 520px) { .two { grid-template-columns: 1fr; } }
 </style>
