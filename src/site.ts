@@ -8,6 +8,8 @@ export const SITE = {
   pressEmail: 'press@getflywheel.io',
   location: 'Richmond, Virginia',
   applyUrl: '/apply/',
+  // Google Apps Script web app. Saves the application and emails Henry.
+  applyEndpoint: 'https://script.google.com/macros/s/AKfycbzYnRwLfY6_aff_bk6VfmOrQxmG9MNvuBYv4twip6NZbi0jnBJVpAdK88Y31eFdmpLuRA/exec',
   // Founding window: three of five committed (partner deck, Aug 2026). Update as seats close.
   seats: { total: 5, committed: 3 },
   // GA4 property for getflywheel.io. First-party journey events still fire if this is cleared.
