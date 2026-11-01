@@ -61,8 +61,20 @@ const faqs: Faq[] = [
         </div>
       </div>
       <figure class="photo hero-photo">
-        <img src="/photos/technician-ceiling.jpg" alt="A Livewire technician on a ladder installing equipment in an office ceiling" width="1000" height="550" fetchpriority="high" />
-        <figcaption>A Livewire technician on a commercial job in Richmond. Livewire is Flywheel’s first member.</figcaption>
+        <!--
+          Temporary hero placeholder.
+          Photo: "A group of men working on a project" by Nate Johnston on Unsplash
+          https://unsplash.com/photos/a-group-of-men-working-on-a-project-TltGIe9PK4Y
+          Photo id TltGIe9PK4Y. Free to use under the Unsplash License.
+          The source is vertical; the file is a 5:4 crop around the huddle and the
+          plywood table, and object-position keeps those faces in frame on mobile.
+        -->
+        <picture>
+          <source srcset="/photos/builders-blueprints.avif" type="image/avif" />
+          <source srcset="/photos/builders-blueprints.webp" type="image/webp" />
+          <img src="/photos/builders-blueprints.jpg" alt="Three builders bent over blueprints on a plywood table at a home construction site" width="1400" height="1120" fetchpriority="high" />
+        </picture>
+        <figcaption>Photo by <a href="https://unsplash.com/@natejohnston">Nate Johnston</a> on <a href="https://unsplash.com/photos/a-group-of-men-working-on-a-project-TltGIe9PK4Y">Unsplash</a></figcaption>
       </figure>
     </div>
   </section>
@@ -177,8 +189,12 @@ const faqs: Faq[] = [
   .hero-grid { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: clamp(32px, 5vw, 72px); align-items: center; }
   .hero h1 { font-size: clamp(3rem, 7vw, 5.5rem); max-width: 11ch; }
   .hero .lede { margin-top: 28px; }
-  .hero-photo img { aspect-ratio: 5 / 4; object-fit: cover; object-position: 70% center; }
-  @media (max-width: 860px) { .hero-grid { grid-template-columns: 1fr; } .hero-photo img { aspect-ratio: 16 / 10; } }
+  .hero-photo picture { display: block; }
+  .hero-photo img { aspect-ratio: 5 / 4; object-fit: cover; object-position: center 42%; }
+  @media (max-width: 860px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-photo img { aspect-ratio: 16 / 10; object-position: center 30%; }
+  }
 
   .proof { margin: 0; font-family: var(--head); font-weight: 600; font-style: italic; font-size: clamp(1.6rem, 3.2vw, 2.6rem); line-height: 1.25; max-width: 32ch; }
   .proof b { font-style: normal; font-weight: 700; }
