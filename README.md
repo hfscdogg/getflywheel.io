@@ -67,4 +67,4 @@ npm run build     # static output in dist/
 - Pricing is published from the deck. Confirm it should be public.
 - `hello@getflywheel.io` is a placeholder inbox; `press@` is from the advisory.
 - The apply form has no backend yet; it composes an email. Point it at Zoho Forms or the CRM.
-- Add a GA4 measurement id in `src/site.ts`.
+- GA4 measurement id is `G-65GBJRVRP3` in `src/site.ts`.
