@@ -10,8 +10,8 @@ export const SITE = {
   applyUrl: '/apply/',
   // Founding window: three of five committed (partner deck, Aug 2026). Update as seats close.
   seats: { total: 5, committed: 3 },
-  // Left empty until a GA4 property exists for getflywheel.io; the first-party journey events still fire.
-  ga4: '',
+  // GA4 property for getflywheel.io. First-party journey events still fire if this is cleared.
+  ga4: 'G-65GBJRVRP3',
   nav: [
     { label: 'How it works', href: '/how-it-works/' },
     { label: 'AI staff', href: '/ai-staff/' },
