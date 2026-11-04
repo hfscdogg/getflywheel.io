@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
+import SeatProfile from '../components/SeatProfile.astro';
 import FaqList from '../components/FaqList.astro';
 import { SITE, STAFF } from '../site';
 import type { Faq } from '../schema';
@@ -8,7 +9,7 @@ import type { Faq } from '../schema';
 const open = SITE.seats.total - SITE.seats.committed;
 const plans = [
   { name: 'Good', line: 'One hire', price: '$749' },
-  { name: 'Better', line: 'Three hires', price: '$1,749' },
+  { name: 'Better', line: 'Three hires', price: '$1,749', featured: true },
   { name: 'Best', line: 'Full staff', price: '$3,499' },
 ];
 const trust = [
@@ -45,20 +46,13 @@ const faqs: Faq[] = [
         <p>Marketing, Outbound, Support and System Designer. You name each one and write the job with us. Each seat moves one number, reports to a person on your team and starts on a 90-day probation. If it doesn’t move that number, you let it go.</p>
       </div>
       <div class="seats">
-        {STAFF.map((s) => (
-          <article>
-            <h3>{s.role}</h3>
-            <p>{s.line}</p>
-            <p class="meta"><span>Moves</span> {s.moves}</p>
-            <p class="meta"><span>Reports to</span> {s.reports}</p>
-          </article>
-        ))}
+        {STAFF.map((s) => <SeatProfile seat={s.seat} role={s.role} line={s.line} moves={s.moves} reports={s.reports} />)}
       </div>
       <p class="after"><a class="more" href="/ai-staff/">What each seat does</a></p>
     </div>
   </section>
 
-  <section class="bone band">
+  <section class="band bone">
     <div class="wrap">
       <div class="intro">
         <h2>Patterns travel. Records never do.</h2>
@@ -71,7 +65,7 @@ const faqs: Faq[] = [
   </section>
 
   <section class="band">
-    <div class="wrap pair">
+    <div class="wrap split">
       <div>
         <h2>Barn-raising, paid.</h2>
         <p class="lede">Ten percent of every subscription dollar goes into the contributor pool. Each quarter it’s paid to the members whose tools the community uses.</p>
@@ -85,7 +79,7 @@ const faqs: Faq[] = [
     </div>
   </section>
 
-  <section class="slate band">
+  <section class="band amber">
     <div class="wrap">
       <div class="intro">
         <h2>{open === 1 ? 'One founding seat is' : `${open} founding seats are`} still open.</h2>
@@ -107,13 +101,13 @@ const faqs: Faq[] = [
         <h2>Good, Better and Best.</h2>
         <p>Priced by the seat. Lease it month to month, or build it and take the keys. Setup is $4,999 once, on every plan.</p>
       </div>
-      <div class="plans">
+      <div class="price-cards">
         {plans.map((p) => (
-          <article>
-            <p class="flag">{p.name}</p>
+          <a class:list={['price', { featured: p.featured }]} href="/pricing/">
+            <p class="eyebrow">{p.name}</p>
             <h3>{p.line}</h3>
-            <p class="price"><b>{p.price}</b> a month</p>
-          </article>
+            <p class="amt"><b>{p.price}</b><span>/month</span></p>
+          </a>
         ))}
       </div>
       <p class="after"><a class="more" href="/pricing/">See what each plan includes</a></p>
@@ -124,26 +118,10 @@ const faqs: Faq[] = [
 </Base>
 
 <style>
-  .seats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; }
-  .seats article { padding-top: 20px; border-top: 2px solid var(--ink); }
-  .seats h3 { font-size: 1.5rem; }
-  .seats p { margin: 10px 0 0; color: var(--ink-soft); }
-  .meta { font-weight: 600; color: var(--ink); }
-  .meta span { display: block; font-weight: 600; font-size: 0.8rem; color: var(--mute); }
-  .after { margin: 36px 0 0; }
-  .pair { align-items: start; }
-  .pair h2 + .lede { margin-top: 16px; }
-  .perks { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 48px; }
-  .perks h3 { margin-bottom: 8px; }
+  .perks { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 48px; }
+  .perks > div { padding-top: 18px; border-top: 1px solid rgba(20, 20, 20, 0.25); }
+  .perks h3 { margin-bottom: 6px; }
   .perks p { margin: 0; }
-  .plans { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
-  .plans article { padding: 28px 24px; background: var(--white); border: 1px solid var(--rule); border-radius: 2px; }
-  .flag { margin: 0 0 8px; font-size: 0.875rem; font-weight: 600; color: var(--slate); }
-  .plans h3 { font-size: 1.75rem; }
-  .price { margin: 16px 0 0; color: var(--mute); }
-  .price b { font-family: var(--head); font-size: 2.5rem; color: var(--ink); margin-right: 4px; }
-  @media (max-width: 980px) { .seats { grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 760px) {
-    .seats, .perks, .plans { grid-template-columns: 1fr; }
-  }
+  .amber h2 { max-width: 14ch; }
+  @media (max-width: 760px) { .perks { grid-template-columns: 1fr; } }
 </style>
