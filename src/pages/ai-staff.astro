@@ -24,36 +24,39 @@ const faqs: Faq[] = [
   <PageHero crumb="AI staff" title="Four seats, each measured on one number." lede="Flywheel’s AI employees are hired, managed and reviewed like people, because that’s how an owner already knows how to run a team." />
 
   <section class="band">
-    <div class="wrap seats">
-      {STAFF.map((s) => <SeatProfile {...s} />)}
+    <div class="wrap seats duo">
+      {STAFF.map((s) => <SeatProfile seat={s.seat} role={s.role} line={s.line} moves={s.moves} reports={s.reports} duties={s.duties} />)}
     </div>
   </section>
 
-  <section class="bone band">
-    <div class="wrap pair">
+  <section class="band bone">
+    <div class="wrap split">
       <div>
         <h2>Every hire gets the same five things.</h2>
         <p class="lede">It’s the difference between a tool your team ignores and a coworker they rely on.</p>
       </div>
-      <dl class="rules">
-        {rules.map((r) => <div><dt>{r.t}</dt><dd>{r.p}</dd></div>)}
-      </dl>
+      <div class="ruled">
+        {rules.map((r, i) => (
+          <div>
+            <span class="idx">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{r.t}</h3>
+            <p>{r.p}</p>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 
   <section class="band">
-    <div class="wrap pair flip">
-      <figure class="photo">
-        <img src="/photos/patch-panel.jpg" alt="A neatly terminated network patch panel with blue cables, installed by Livewire" width="1024" height="1024" loading="lazy" />
-      </figure>
-      <div>
+    <div class="wrap">
+      <div class="intro">
         <h2>The tools they use were built by integrators.</h2>
-        <p class="lede">Members built these for their own firms first. Build one the community uses and you’re paid every quarter it runs.</p>
-        <div class="items one">
-          {TOOLS.map((t) => <div><h3>{t.name}</h3><p>{t.line}</p></div>)}
-        </div>
-        <p class="after"><a class="more" href="/network/#contributor-pool">How the contributor pool works</a></p>
+        <p>Members built these for their own firms first. Build one the community uses and you’re paid every quarter it runs.</p>
       </div>
+      <div class="items">
+        {TOOLS.map((t) => <div><h3>{t.name}</h3><p>{t.line}</p></div>)}
+      </div>
+      <p class="after"><a class="more" href="/network/#contributor-pool">How the contributor pool works</a></p>
     </div>
   </section>
 
@@ -61,15 +64,10 @@ const faqs: Faq[] = [
 </Base>
 
 <style>
-  .seats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 56px 64px; }
-  @media (max-width: 760px) { .seats { grid-template-columns: 1fr; } }
-  .pair .lede { margin-top: 20px; }
-  .pair { align-items: start; }
-  .rules { margin: 0; }
-  .rules div { padding: 18px 0; border-top: 1px solid var(--rule); }
-  .rules div:last-child { border-bottom: 1px solid var(--rule); }
-  .rules dt { font-family: var(--head); font-weight: 700; font-size: 1.3rem; }
-  .rules dd { margin: 4px 0 0; color: var(--ink-soft); }
-  .items.one { grid-template-columns: 1fr; margin-top: 28px; }
-  .after { margin: 28px 0 0; }
+  .split .lede { margin-top: 16px; }
+  .ruled { margin-top: 8px; }
+  @media (min-width: 861px) {
+    .ruled > div { grid-template-columns: 40px minmax(0, 1fr); }
+    .ruled p { grid-column: 2; }
+  }
 </style>

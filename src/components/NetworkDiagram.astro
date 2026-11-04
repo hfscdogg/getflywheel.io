@@ -1,60 +1,52 @@
 ---
-// The model in one picture, from the deck's "The model" slide: five firms around the wheel, each keeping its
-// records in its own warehouse. Patterns go in to the network and better agents come back out.
-const C = 400;
+// Five firms around the wheel. Each keeps its records. Patterns go in and better agents come back.
 const firms = [
-  { name: 'Livewire', note: 'Client zero', state: 'lit' },
-  { name: 'Founding firm', note: 'Committed', state: 'taken' },
-  { name: 'Founding firm', note: 'Committed', state: 'taken' },
-  { name: 'Seat four', note: 'Open', state: 'open' },
-  { name: 'Seat five', note: 'Open', state: 'open' },
-].map((f, i) => {
-  const a = ((-90 + i * 72) * Math.PI) / 180;
-  const at = (r: number) => ({ x: C + r * Math.cos(a), y: C + r * Math.sin(a) });
-  return { ...f, box: at(286), from: at(132), to: at(196) };
-});
+  { name: 'Livewire', state: 'lit' },
+  { name: 'Founding firm', state: 'taken' },
+  { name: 'Founding firm', state: 'taken' },
+  { name: 'Seat four', state: 'open' },
+  { name: 'Seat five', state: 'open' },
+];
 ---
 <figure class="net">
-  <svg viewBox="0 0 800 800" role="img" aria-labelledby="net-title net-desc">
-    <title id="net-title">How the Flywheel network works</title>
-    <desc id="net-desc">Five member firms sit around the Flywheel wheel. Each firm keeps its records in its own warehouse. Patterns, playbooks and benchmarks go to the network, and better agents come back to every firm.</desc>
-    <defs>
-      <marker id="tip" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" fill="#3e5a7a" /></marker>
-    </defs>
+  <div class="panel">
+    <img src="/brand/flywheel-symbol-color.svg" alt="" width="280" height="280" />
+  </div>
+  <p class="kicker">How the network works</p>
+  <ul>
     {firms.map((f) => (
-      <line x1={f.from.x} y1={f.from.y} x2={f.to.x} y2={f.to.y} stroke="#3e5a7a" stroke-width="2" stroke-dasharray={f.state === 'open' ? '5 6' : undefined} opacity={f.state === 'open' ? 0.45 : 1} marker-start="url(#tip)" marker-end="url(#tip)" />
+      <li class={f.state}>
+        <span class="dot" aria-hidden="true"></span>
+        <b>{f.name}</b>
+        <span>{f.state === 'open' ? 'Open founding seat' : 'Records stay in its own warehouse'}</span>
+      </li>
     ))}
-    <image href="/brand/flywheel-symbol-color.svg" x={C - 130} y={C - 130} width="260" height="260" />
-    {firms.map((f) => (
-      <g transform={`translate(${f.box.x - 110} ${f.box.y - 52})`}>
-        <rect width="220" height="104" rx="2" fill={f.state === 'lit' ? '#f2c200' : f.state === 'open' ? 'none' : '#fbfaf7'} stroke={f.state === 'open' ? '#8f897b' : '#1f2a36'} stroke-width="1.5" stroke-dasharray={f.state === 'open' ? '5 5' : undefined} />
-        <text x="16" y="44" class:list={['firm', { dim: f.state === 'open' }]}>{f.name}</text>
-        <text x="16" y="76" class="note">{f.state === 'open' ? 'Open founding seat' : 'Records stay here'}</text>
-      </g>
-    ))}
-  </svg>
-  <ol class="list" aria-hidden="true">
-    {firms.map((f) => <li class={f.state}><b>{f.name}</b><span>{f.state === 'open' ? 'Open founding seat' : 'Records stay in its own warehouse'}</span></li>)}
-  </ol>
+  </ul>
   <figcaption>Patterns go in to the network and better agents come back out. Customer records never leave a member’s own warehouse.</figcaption>
 </figure>
 
 <style>
   .net { margin: 0; }
-  svg { width: 100%; max-width: 620px; margin: 0 auto; display: block; }
-  .firm { font-family: var(--head); font-weight: 700; font-size: 28px; fill: #1f2a36; }
-  .firm.dim { fill: #8f897b; }
-  .note { font-family: var(--body); font-size: 19px; fill: #3d3b37; }
-  figcaption { margin: 20px auto 0; max-width: 46ch; text-align: center; font-size: 0.9rem; color: var(--mute); }
-  .list { display: none; list-style: none; margin: 0; padding: 0; }
-  @media (max-width: 640px) {
-    svg { display: none; }
-    .list { display: grid; gap: 8px; }
-    .list li { display: grid; gap: 2px; padding: 12px 14px; border: 1.5px solid var(--ink); background: var(--white); border-radius: 2px; }
-    .list b { font-family: var(--head); font-size: 1.2rem; }
-    .list span { font-size: 0.9rem; color: var(--ink-soft); }
-    .list .lit { background: var(--yellow); }
-    .list .open { background: none; border-style: dashed; border-color: var(--mute); color: var(--mute); }
-    figcaption { text-align: left; }
+  .panel { background: var(--bone); display: grid; place-items: center; padding: 28px 20px; margin-bottom: 8px; }
+  .panel img { width: min(100%, 280px); height: auto; }
+  .kicker {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--mute);
+    margin: 18px 0 0;
+  }
+  ul { list-style: none; margin: 8px 0 0; padding: 0; }
+  li { display: grid; grid-template-columns: 14px minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 10px 16px; align-items: baseline; padding: 12px 0; border-bottom: 1px solid var(--rule); }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--amber); transform: translateY(1px); }
+  .open .dot { background: transparent; border: 1.5px solid var(--ink); }
+  b { font-family: var(--sans); font-weight: 700; }
+  li span:last-child { color: var(--ink-soft); }
+  figcaption { margin: 14px 0 0; font-size: 0.88rem; color: var(--mute); }
+  @media (max-width: 520px) {
+    li { grid-template-columns: 14px minmax(0, 1fr); }
+    li span:last-child { grid-column: 2; }
   }
 </style>

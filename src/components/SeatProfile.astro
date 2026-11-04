@@ -1,9 +1,10 @@
 ---
 // One seat on the AI staff, written up the way an owner would write up a job.
-interface Props { role: string; line: string; moves: string; reports: string; duties?: string[] }
-const { role, line, moves, reports, duties } = Astro.props;
+interface Props { role: string; line: string; moves: string; reports: string; duties?: string[]; seat?: string }
+const { role, line, moves, reports, duties, seat } = Astro.props;
 ---
 <article class="seat">
+  <p class="kicker">{seat && <span>Seat {seat}</span>}<span>90-day probation</span></p>
   <h3>{role}</h3>
   <p class="line">{line}</p>
   {duties && <ul>{duties.map((d) => <li>{d}</li>)}</ul>}
@@ -14,13 +15,32 @@ const { role, line, moves, reports, duties } = Astro.props;
 </article>
 
 <style>
-  .seat { padding-top: 24px; border-top: 2px solid var(--ink); display: flex; flex-direction: column; }
-  h3 { font-size: 1.75rem; }
-  .line { margin: 8px 0 0; font-size: 1.1rem; color: var(--ink-soft); }
-  @media (min-width: 1081px) { .line { min-height: 3.3em; } }
-  ul { margin: 18px 0 0; padding-left: 1.1em; display: grid; gap: 6px; color: var(--ink-soft); }
-  li::marker { color: var(--slate); }
-  dl { margin: 20px 0 0; display: grid; gap: 14px; }
-  dt { font-size: 0.85rem; color: var(--mute); }
-  dd { margin: 2px 0 0; font-weight: 600; line-height: 1.35; }
+  .seat {
+    background: var(--bone);
+    border-top: 3px solid var(--amber);
+    padding: 18px 18px 22px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  .kicker {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 0 0 16px;
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--mute);
+  }
+  h3 { font-family: var(--display); font-weight: 400; font-size: clamp(1.6rem, 2vw, 1.9rem); letter-spacing: -0.03em; line-height: 0.95; }
+  .line { margin: 12px 0 0; color: var(--ink-soft); }
+  ul { margin: 16px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+  li { position: relative; padding-left: 14px; color: var(--ink-soft); }
+  li::before { content: ''; position: absolute; left: 0; top: 0.7em; width: 7px; height: 1px; background: var(--ochre); }
+  dl { margin: 18px 0 0; display: grid; gap: 14px; margin-top: auto; padding-top: 18px; }
+  dt { font-family: var(--mono); font-size: 0.66rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute); }
+  dd { margin: 4px 0 0; font-weight: 600; line-height: 1.35; }
 </style>

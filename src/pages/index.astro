@@ -6,9 +6,10 @@ import Base from '../layouts/Base.astro';
 import SeatProfile from '../components/SeatProfile.astro';
 import NetworkDiagram from '../components/NetworkDiagram.astro';
 import FaqList from '../components/FaqList.astro';
-import { SITE, STAFF } from '../site';
+import { SITE, STAFF, PROOF } from '../site';
 import type { Faq } from '../schema';
 
+const open = SITE.seats.total - SITE.seats.committed;
 const problems = [
   { t: 'Marketing', p: 'It gets posted when there’s time, and there’s never time.' },
   { t: 'Follow-up', p: 'Quotes and leads go cold while the team is on a job site.' },
@@ -35,6 +36,20 @@ const withFw = [
   'You run the firm with the playbooks of the best integrators in the channel behind you.',
 ];
 
+const points = [
+  { href: '/ai-staff/', t: 'Four seats', p: 'Marketing, Outbound, Support and System Designer. Each gets a name, a job description, one number to move, a human manager and a 90-day probation.' },
+  { href: '/how-it-works/#trust', t: 'Your records stay put', p: 'Patterns, playbooks and benchmarks travel. Each member owns its warehouse. One credential in, one revocation out and each seat opts in on its own.' },
+  { href: '/network/#contributor-pool', t: 'Barn-raising, paid', p: 'Ten percent of every subscription dollar is paid each quarter to the members whose tools the community uses.' },
+  { href: '/apply/', t: 'Five founding seats', p: `${open} are still open, and the window closes at launch. Referral cash, 12 months alone in your metro, a product council seat and lifetime pricing.` },
+  { href: '/community/', t: 'Partner circle', p: 'Builders and consultants can join, refer a firm and get paid when the community uses what they build.' },
+];
+
+const prices = [
+  { tier: 'Good', name: 'One hire', price: '$749' },
+  { tier: 'Better', name: 'Three hires', price: '$1,749', featured: true },
+  { tier: 'Best', name: 'The full staff', price: '$3,499' },
+];
+
 const faqs: Faq[] = [
   { q: 'What is Flywheel?', a: 'Flywheel is a community-powered AI platform for custom integration firms. It gives each member firm AI employees for marketing, outbound sales, service triage and system design, which the team reaches by text like any coworker. Each firm owns its own data warehouse, and the patterns learned across member firms make every member’s staff better.' },
   { q: 'Do I have to replace my CRM or the tools I use?', a: 'No. The staff works on top of the tools you already run, such as QuickBooks, your CRM and your ticketing, through one login you give us. When Flywheel builds a connector for one member, every member on that tool gets it.' },
@@ -49,55 +64,60 @@ const faqs: Faq[] = [
   description="Flywheel gives integration firms AI employees for marketing, outbound, service triage and system design. Your team texts them like coworkers, your data stays in a warehouse you own, and every member firm makes your staff smarter."
   faqs={faqs}
 >
-  <!-- The hero, and what they want -->
   <section class="hero">
-    <div class="wrap hero-grid">
-      <div>
-        <h1>Your firm, fully staffed.</h1>
-        <p class="lede">You started an integration firm to do great work for clients. Flywheel gives you AI employees for the marketing, follow-up and service calls that pile up in the meantime. Your team texts them like coworkers.</p>
-        <div class="actions">
-          <a class="btn primary" href={SITE.applyUrl} data-track="cta_click" data-label="Apply (hero)">Apply for a founding seat</a>
-          <a class="btn quiet" href="/how-it-works/">How it works</a>
+    <div class="wrap">
+      <p class="eyebrow">AI staff for custom integrators</p>
+      <h1>Your firm, <span class="ochre">fully staffed.</span></h1>
+      <div class="hero-grid">
+        <div>
+          <p class="lede">You started an integration firm to do great work for clients. Flywheel gives you AI employees for the marketing, follow-up and service calls that pile up in the meantime. Your team texts them like coworkers.</p>
+          <div class="actions">
+            <a class="btn primary" href={SITE.applyUrl} data-track="cta_click" data-label="Apply (hero)">Apply for a founding seat</a>
+            <p class="open-count">{open} of {SITE.seats.total} open</p>
+          </div>
+          <p class="caption">Owners and technicians comparing notes. Every member makes the network smarter.</p>
+        </div>
+        <div>
+          <p class="eyebrow">Proof · Livewire, client zero</p>
+          <div class="stats">
+            {PROOF.map((s) => (
+              <div class="stat">
+                <b>{s.value}{s.unit ? ` ${s.unit}` : ''}</b>
+                <span>{s.label}</span>
+              </div>
+            ))}
+          </div>
+          <p class="caption">At Livewire, the AI staff books <b>47 outbound conversations</b> a month, answers service requests in <b>3&nbsp;minutes</b> and keeps <b>34 permit-sourced projects</b> in the pipeline.</p>
         </div>
       </div>
-      <figure class="photo hero-photo">
-        <img src="/photos/tech-rack-termination.jpg" alt="Technician terminating patch cables into a network switch in an open equipment rack" width="1000" height="800" fetchpriority="high" />
-        <figcaption>Owners and technicians comparing notes. Every member makes the network smarter.</figcaption>
-      </figure>
     </div>
   </section>
 
-  <!-- Proof, as one sentence -->
-  <section class="yellow band tight">
+  <section class="band" id="problem">
     <div class="wrap">
-      <p class="proof">At Livewire, the AI staff books <b>47 outbound conversations</b> a month, answers service requests in <b>3&nbsp;minutes</b> and keeps <b>34 permit-sourced projects</b> in the pipeline.</p>
-    </div>
-  </section>
-
-  <!-- The problem -->
-  <section class="band">
-    <div class="wrap problem">
-      <div>
-        <h2>Every integrator solves the same problems alone.</h2>
-        <p class="lede">Hiring is slow and expensive. Consultants map the problem and leave. So the owner ends up as the marketing department, the follow-up desk and the after-hours dispatcher.</p>
+      <p class="eyebrow">The problem</p>
+      <h2>Every integrator solves the same problems alone.</h2>
+      <p class="lede" style="margin-top:18px">Hiring is slow and expensive. Consultants map the problem and leave. So the owner ends up as the marketing department, the follow-up desk and the after-hours dispatcher.</p>
+      <div class="ruled" style="margin-top:28px">
+        {problems.map((r, i) => (
+          <div>
+            <span class="idx">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{r.t}</h3>
+            <p>{r.p}</p>
+          </div>
+        ))}
       </div>
-      <div class="items one">
-        {problems.map((r) => <div><h3>{r.t}</h3><p>{r.p}</p></div>)}
-      </div>
-    </div>
-    <div class="wrap">
       <p class="aside">And the lessons each firm learns the hard way stay inside its own four walls.</p>
     </div>
   </section>
 
-  <!-- The guide: empathy and authority -->
-  <section class="bone band">
-    <div class="wrap pair">
-      <figure class="photo">
-        <img src="/photos/livewire-van.jpg" alt="A Livewire service van parked outside the Livewire office in Richmond" width="1000" height="550" loading="lazy" />
-      </figure>
+  <section class="band amber">
+    <div class="wrap split">
       <div>
+        <p class="eyebrow">Built in Richmond since 2002</p>
         <h2>We run an integration firm too.</h2>
+      </div>
+      <div>
         <p class="lede">Flywheel was built inside Livewire, which has installed and serviced technology in Richmond since 2002.</p>
         <p class="measure">We know what a truck roll costs and what a Friday service call does to a weekend. We put these AI employees on our own payroll first, held each one to a single number, and kept only the ones that moved it. Now we’re offering the same staff to a small group of firms, and building the network we wish we’d had.</p>
         <a class="more" href="/about/">Read the Livewire story</a>
@@ -105,43 +125,42 @@ const faqs: Faq[] = [
     </div>
   </section>
 
-  <!-- The plan -->
-  <section class="slate band" id="plan">
+  <section class="band" id="plan">
     <div class="wrap">
-      <div class="intro">
-        <h2>Three steps to a fully staffed firm.</h2>
-        <p>There’s no software to build or host and nothing to rip out. You keep your data, your customers and the final say on everything that goes out.</p>
-      </div>
-      <ol class="steps">
-        {plan.map((s) => <li><h3>{s.t}</h3><p>{s.p}</p></li>)}
+      <p class="eyebrow">How it works</p>
+      <h2>Three steps to a fully staffed firm.</h2>
+      <p class="lede" style="margin-top:18px">There’s no software to build or host and nothing to rip out. You keep your data, your customers and the final say on everything that goes out.</p>
+      <ol class="step-cards">
+        {plan.map((s, i) => (
+          <li>
+            <span class="n">{i + 1}</span>
+            <h3>{s.t}</h3>
+            <p>{s.p}</p>
+          </li>
+        ))}
       </ol>
-      <div class="actions">
-        <a class="btn primary" href={SITE.applyUrl} data-track="cta_click" data-label="Apply (plan)">Apply for a founding seat</a>
-        <a class="btn quiet" href="/how-it-works/">See the details</a>
-      </div>
+      <p class="after"><a class="more" href="/how-it-works/">See the details</a></p>
     </div>
   </section>
 
-  <!-- The staff -->
-  <section class="band">
+  <section class="band" id="staff">
     <div class="wrap">
-      <div class="intro">
-        <h2>Four seats, each measured on one number.</h2>
-        <p>You name them, someone on your team manages them, and anyone can text them. Each one starts on a 90-day probation.</p>
-      </div>
-      <div class="seats">
-        {STAFF.map((s) => <SeatProfile role={s.role} line={s.line} moves={s.moves} reports={s.reports} />)}
+      <p class="eyebrow">The staff</p>
+      <h2>Four seats, each measured on one number.</h2>
+      <p class="lede" style="margin-top:18px">You name them, someone on your team manages them, and anyone can text them. Each one starts on a 90-day probation.</p>
+      <div class="seats" style="margin-top:28px">
+        {STAFF.map((s) => <SeatProfile seat={s.seat} role={s.role} line={s.line} moves={s.moves} reports={s.reports} />)}
       </div>
       <p class="after"><a class="more" href="/ai-staff/">What each seat does</a></p>
     </div>
   </section>
 
-  <!-- The network -->
-  <section class="bone band">
-    <div class="wrap pair net">
+  <section class="band" id="network">
+    <div class="wrap split">
       <div>
+        <p class="eyebrow">The network</p>
         <h2>Your data stays home. What works gets shared.</h2>
-        <p class="measure">Every member keeps its customer records in its own warehouse. What the network shares is the pattern: the follow-up cadence that books the meeting, the triage step that saves a truck roll. When one member’s staff gets better, every member’s does.</p>
+        <p class="measure" style="margin-top:20px">Every member keeps its customer records in its own warehouse. What the network shares is the pattern: the follow-up cadence that books the meeting, the triage step that saves a truck roll. When one member’s staff gets better, every member’s does.</p>
         <p class="measure">Members who build a tool the community uses are paid from the contributor pool every quarter it runs.</p>
         <a class="more" href="/network/">How the network works</a>
       </div>
@@ -149,61 +168,56 @@ const faqs: Faq[] = [
     </div>
   </section>
 
-  <!-- The community, from the enablement deck -->
-  <section class="band community" id="community">
+  <section class="band" id="community">
     <div class="wrap">
-      <div class="intro">
-        <h2>The Flywheel spins faster with every firm that joins.</h2>
-        <p>Named AI employees you text like staff. A network where patterns travel and customer records never do. A contributor pool that pays the members whose tools everyone uses. Livewire is client zero.</p>
-      </div>
+      <p class="eyebrow">Livewire is client zero</p>
+      <h2>The Flywheel spins faster with every firm that joins.</h2>
+      <p class="lede" style="margin-top:18px;max-width:68ch">Named AI employees you text like staff. A network where patterns travel and customer records never do. A contributor pool that pays the members whose tools everyone uses. Livewire is client zero.</p>
       <ul class="points">
-        <li>
-          <h3>Four seats</h3>
-          <p>Marketing, Outbound, Support and System Designer. Each gets a name, a job description, one number to move, a human manager and a 90-day probation.</p>
-        </li>
-        <li>
-          <h3>Your records stay put</h3>
-          <p>Patterns, playbooks and benchmarks travel. Each member owns its warehouse. One credential in, one revocation out and each seat opts in on its own.</p>
-        </li>
-        <li>
-          <h3>Barn-raising, paid</h3>
-          <p>Ten percent of every subscription dollar is paid each quarter to the members whose tools the community uses.</p>
-        </li>
-        <li>
-          <h3>Five founding seats</h3>
-          <p>{SITE.seats.total - SITE.seats.committed} are still open, and the window closes at launch. Referral cash, 12 months alone in your metro, a product council seat and lifetime pricing.</p>
-        </li>
-        <li>
-          <h3>Partner circle</h3>
-          <p>Builders and consultants can join, refer a firm and get paid when the community uses what they build.</p>
-        </li>
-        <li>
-          <h3>Good, Better, Best</h3>
-          <p>One hire is $749 a month, three hires are $1,749 and the full staff is $3,499. Lease or build. Setup is $4,999 once.</p>
-        </li>
+        {points.map((item) => (
+          <li>
+            <h3><a href={item.href}>{item.t}</a></h3>
+            <p>{item.p}</p>
+          </li>
+        ))}
       </ul>
-      <div class="actions">
-        <a class="btn primary" href={SITE.applyUrl} data-track="cta_click" data-label="Apply (community)">Apply for a founding seat</a>
-        <a class="btn quiet" href={`mailto:${SITE.email}`}>Talk to us</a>
-      </div>
       <p class="after"><a class="more" href="/community/">How the community works</a></p>
     </div>
   </section>
 
-  <!-- What's at stake -->
+  <section class="band" id="pricing">
+    <div class="wrap">
+      <p class="eyebrow">Good, better, best</p>
+      <h2>Priced by headcount.</h2>
+      <p class="lede" style="margin-top:18px;max-width:62ch">One hire is $749 a month, three hires are $1,749 and the full staff is $3,499. Lease or build. Setup is $4,999 once.</p>
+      <div class="price-cards" style="margin-top:28px">
+        {prices.map((p) => (
+          <a class:list={['price', { featured: p.featured }]} href="/pricing/">
+            <span class="eyebrow">{p.tier}</span>
+            <h3>{p.name}</h3>
+            <p class="amt"><b>{p.price}</b><span>/month</span></p>
+          </a>
+        ))}
+      </div>
+      <div class="setup-row">
+        <span class="eyebrow">One-time setup</span>
+        <b>$4,999</b>
+      </div>
+      <p class="after"><a class="more" href="/pricing/">See what each plan includes</a></p>
+    </div>
+  </section>
+
   <section class="band">
     <div class="wrap">
-      <div class="intro">
-        <h2>The channel is going to get AI staff. The question is whose.</h2>
-        <p>The firms that staff up first will answer faster, follow up longer and learn quicker than the firm down the street.</p>
-      </div>
-      <div class="stakes">
+      <h2>The channel is going to get AI staff. The question is whose.</h2>
+      <p class="lede" style="margin-top:18px">The firms that staff up first will answer faster, follow up longer and learn quicker than the firm down the street.</p>
+      <div class="stakes" style="margin-top:28px">
         <div>
-          <h3 class="lose">If nothing changes</h3>
+          <h3>If nothing changes</h3>
           <ul>{without.map((t) => <li>{t}</li>)}</ul>
         </div>
-        <div>
-          <h3 class="win">With a Flywheel staff</h3>
+        <div class="win">
+          <h3>With a Flywheel staff</h3>
           <ul>{withFw.map((t) => <li>{t}</li>)}</ul>
         </div>
       </div>
@@ -212,45 +226,3 @@ const faqs: Faq[] = [
 
   <FaqList faqs={faqs} />
 </Base>
-
-<style>
-  .hero { padding-block: clamp(48px, 7vw, 96px) clamp(56px, 7vw, 96px); }
-  .hero-grid { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: clamp(32px, 5vw, 72px); align-items: center; }
-  .hero h1 { font-size: clamp(3rem, 7vw, 5.5rem); max-width: 11ch; }
-  .hero .lede { margin-top: 28px; }
-  .hero-photo img { aspect-ratio: 5 / 4; object-fit: cover; object-position: 70% center; }
-  @media (max-width: 860px) { .hero-grid { grid-template-columns: 1fr; } .hero-photo img { aspect-ratio: 16 / 10; } }
-
-  .proof { margin: 0; font-family: var(--head); font-weight: 600; font-style: italic; font-size: clamp(1.6rem, 3.2vw, 2.6rem); line-height: 1.25; max-width: 32ch; }
-  .proof b { font-style: normal; font-weight: 700; }
-
-  .problem { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 40px 80px; align-items: start; }
-  .problem .lede { margin-top: 24px; }
-  .items.one { grid-template-columns: 1fr; }
-  .aside { margin: clamp(48px, 6vw, 80px) 0 0; font-family: var(--head); font-style: italic; font-weight: 600; font-size: clamp(1.5rem, 2.8vw, 2.25rem); line-height: 1.2; max-width: 30ch; color: var(--oxblood); }
-  @media (max-width: 860px) { .problem { grid-template-columns: 1fr; } }
-
-  .pair h2 + .lede { margin-top: 20px; }
-  .pair .lede { margin-bottom: 20px; }
-
-  .seats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 40px 32px; }
-  @media (max-width: 1080px) { .seats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (max-width: 600px) { .seats { grid-template-columns: 1fr; } }
-  .after { margin: 40px 0 0; }
-  .community { border-bottom: 1px solid var(--rule); }
-  .points { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 32px 56px; }
-  .points h3 { margin-bottom: 8px; }
-  .points p { margin: 0; color: var(--ink-soft); }
-  @media (max-width: 760px) { .points { grid-template-columns: 1fr; } }
-
-  .net h2 { margin-bottom: 24px; }
-  .net .more { display: inline-block; margin-top: 8px; }
-
-  .stakes { display: grid; grid-template-columns: 1fr 1fr; gap: 40px 64px; }
-  .stakes h3 { padding-bottom: 14px; border-bottom: 2px solid currentColor; }
-  .lose { color: var(--oxblood); }
-  .win { color: var(--slate); }
-  .stakes ul { list-style: none; margin: 0; padding: 0; }
-  .stakes li { padding: 16px 0; border-bottom: 1px solid var(--rule); }
-  @media (max-width: 760px) { .stakes { grid-template-columns: 1fr; } }
-</style>

@@ -4,14 +4,15 @@ interface Props { faqs: Faq[]; title?: string }
 const { faqs, title = 'Questions owners ask first' } = Astro.props;
 ---
 <section class="band" id="faq">
-  <div class="wrap faq-wrap">
+  <div class="wrap">
+    <p class="eyebrow">FAQ</p>
     <h2>{title}</h2>
     <div class="faq">
       {faqs.map((f) => (
-        <details>
-          <summary>{f.q}</summary>
-          <div class="a"><p>{f.a}</p></div>
-        </details>
+        <div class="qa">
+          <h3>{f.q}</h3>
+          <p>{f.a}</p>
+        </div>
       ))}
     </div>
   </div>

@@ -1,7 +1,13 @@
 ---
-import '@fontsource/zilla-slab/latin-700.css';
-import '@fontsource/zilla-slab/latin-600-italic.css';
-import '@fontsource-variable/hanken-grotesk/wght.css';
+import '@fontsource/archivo-black/latin-400.css';
+import '@fontsource/archivo/latin-500.css';
+import '@fontsource/archivo/latin-600.css';
+import '@fontsource/archivo/latin-700.css';
+import '@fontsource/inter-tight/latin-400.css';
+import '@fontsource/inter-tight/latin-500.css';
+import '@fontsource/inter-tight/latin-600.css';
+import '@fontsource/jetbrains-mono/latin-400.css';
+import '@fontsource/jetbrains-mono/latin-500.css';
 import '../styles/global.css';
 import Analytics from '../components/Analytics.astro';
 import CtaBand from '../components/CtaBand.astro';
@@ -33,7 +39,7 @@ const ld = graph({ canonical, title: fullTitle, description, image, crumbs, faqs
   <meta name="description" content={description} />
   <link rel="canonical" href={canonical} />
   {noindex && <meta name="robots" content="noindex,follow" />}
-  <meta name="theme-color" content="#f1eee6" />
+  <meta name="theme-color" content="#ffffff" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Flywheel" />
   <meta property="og:title" content={fullTitle} />
@@ -57,10 +63,13 @@ const ld = graph({ canonical, title: fullTitle, description, image, crumbs, faqs
   <header class="site-header">
     <div class="wrap">
       <a class="brand" href="/"><img src="/brand/flywheel-horizontal-color.svg" alt="Flywheel" width="975" height="400" /></a>
-      <button class="menu-toggle" aria-controls="nav" aria-expanded="false" onclick="var n=document.getElementById('nav');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))">Menu</button>
+      <div class="header-tools">
+        <a class="btn primary header-apply" href={SITE.applyUrl} data-track="cta_click" data-label="Apply (header)"><span class="wide-label">Apply for a founding seat</span><span class="narrow-label">Apply</span></a>
+        <button class="menu-toggle" type="button" aria-controls="nav" aria-expanded="false" onclick="var n=document.getElementById('nav');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))">Menu</button>
+      </div>
       <nav id="nav" class="site-nav" aria-label="Main">
         {SITE.nav.map((n) => <a href={n.href} aria-current={path === n.href ? 'page' : undefined}>{n.label}</a>)}
-        <a class="btn primary" href={SITE.applyUrl} data-track="cta_click" data-label="Apply (header)">Apply for a seat</a>
+        <a class="btn primary" href={SITE.applyUrl} data-track="cta_click" data-label="Apply (header)">Apply for a founding seat</a>
       </nav>
     </div>
   </header>
@@ -72,7 +81,7 @@ const ld = graph({ canonical, title: fullTitle, description, image, crumbs, faqs
     <div class="wrap">
       <div class="cols">
         <div>
-          <a class="brand" href="/"><img src="/brand/flywheel-horizontal-white.svg" alt="Flywheel" width="975" height="400" /></a>
+          <a class="brand" href="/"><img src="/brand/flywheel-horizontal-color.svg" alt="Flywheel" width="975" height="400" /></a>
           <p class="motto">AI staff for custom integration firms, and a network of integrators who share what works. Built in Richmond, Virginia, inside Livewire.</p>
         </div>
         <div>

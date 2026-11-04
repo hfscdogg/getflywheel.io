@@ -10,37 +10,40 @@ const seats = [
   { name: 'Seat five', note: 'Open', taken: false },
 ];
 ---
-<section class="cta yellow band" aria-labelledby="cta-title">
-  <div class="wrap grid">
-    <div>
-      <h2 id="cta-title">{open === 2 ? 'Two' : open} founding seats are left.</h2>
-      <p class="lede">Founding firms get their metro to themselves for 12 months, lifetime pricing, a vote on what gets built next and referral income on every firm they bring in. The window closes at launch.</p>
-      <div class="actions">
-        <a class="btn" href={SITE.applyUrl} data-track="cta_click" data-label="Apply (closing band)">Apply for a founding seat</a>
-      </div>
-    </div>
-    <ol class="seats" aria-label="Founding seats">
-      {seats.map((s) => (
+<section class="cta band" aria-labelledby="cta-title">
+  <div class="wrap">
+    <p class="eyebrow">Window closes at launch</p>
+    <h2 id="cta-title">{open === 2 ? 'Two' : open} founding seats are left.</h2>
+    <p class="lede">Founding firms get their metro to themselves for 12 months, lifetime pricing, a vote on what gets built next and referral income on every firm they bring in. The window closes at launch.</p>
+    <ol class="seat-cards" aria-label="Founding seats">
+      {seats.map((s, i) => (
         <li class:list={{ open: !s.taken }}>
-          <img src="/brand/favicon.svg" alt="" width="28" height="28" loading="lazy" />
+          <span class="num">{String(i + 1).padStart(2, '0')}</span>
           <span class="name">{s.name}</span>
           <span class="note">{s.note}</span>
         </li>
       ))}
     </ol>
+    <div class="actions">
+      <a class="btn" href={SITE.applyUrl} data-track="cta_click" data-label="Apply (closing band)">Apply for a founding seat</a>
+      <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+      <a href={`mailto:${SITE.pressEmail}`}>{SITE.pressEmail}</a>
+    </div>
   </div>
 </section>
 
 <style>
-  .grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 48px 80px; align-items: center; }
-  .lede { color: var(--ink); margin-top: 20px; max-width: 44ch; }
-  .seats { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--ink); }
-  .seats li { display: grid; grid-template-columns: 28px 1fr auto; gap: 16px; align-items: center; padding: 14px 0; border-bottom: 1px solid rgba(31, 42, 54, .25); }
-  .seats img { width: 28px; height: auto; }
-  .name { font-family: var(--head); font-weight: 700; font-size: 1.25rem; }
-  .note { font-size: 0.9rem; }
-  .open img { opacity: .25; }
-  .open .name { color: rgba(31, 42, 54, .6); }
-  .open .note { font-weight: 700; }
-  @media (max-width: 860px) { .grid { grid-template-columns: 1fr; } }
+  .lede { margin-top: 22px; max-width: 52ch; color: var(--ink); }
+  .seat-cards { list-style: none; margin: 32px 0 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+  .seat-cards li { background: #fff; padding: 16px 14px 18px; display: grid; align-content: start; gap: 4px; min-height: 112px; }
+  .seat-cards li.open { background: transparent; border: 1.5px dashed rgba(20, 20, 20, 0.55); }
+  .num { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em; color: var(--mute); }
+  .name { font-family: var(--sans); font-weight: 700; font-size: 1.02rem; }
+  .note { font-size: 0.88rem; color: var(--ink-soft); }
+  .open .num, .open .note, .open .name { color: var(--ink); }
+  .actions a:not(.btn) { text-decoration: underline; text-underline-offset: 3px; }
+  .actions a:not(.btn):hover { color: var(--ink); }
+  @media (max-width: 1000px) { .seat-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (max-width: 680px) { .seat-cards { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 460px) { .seat-cards { grid-template-columns: 1fr; } }
 </style>

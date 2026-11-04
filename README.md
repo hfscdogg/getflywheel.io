@@ -11,7 +11,7 @@ The home page runs the seven beats in order:
 |---|---|
 | A character who wants something | Hero: "Your firm, fully staffed." beside a Livewire technician on a job |
 | Has a problem (external, internal, philosophical) | The four jobs that pile up, the owner doing all of them, lessons that stay inside one firm |
-| Meets a guide (empathy and authority) | "We run an integration firm too": Livewire since 1994, plus the client-zero numbers |
+| Meets a guide (empathy and authority) | "We run an integration firm too": Livewire since 2002, plus the client-zero numbers |
 | Who gives them a plan | Three steps: own your data, hire the seat that hurts most, join the network |
 | And calls them to action | Apply for a founding seat (direct); How it works (transitional) |
 | That helps them avoid failure | "If nothing changes" |
@@ -24,14 +24,11 @@ flywheel-kitchen architecture docs.
 
 - Logos are the concept 12 kit in `brand/source/` (October 2026). `python3 scripts/brand.py` copies them
   into `public/brand/` and writes the favicon and apple touch icon.
-- Palette accents: ink `#1f2a36`, Momentum Yellow `#f2c200`, Steel Blue `#3e5a7a`, with Slate `#6b7785` and
-  Mist `#e8edf2`. Oxblood `#7d4949` and bone `#e2ddcf` stay in support. Yellow and steel blue are used as
-  whole sections, not small accents.
-- Type: Zilla Slab for headings, in sentence case (its slab serifs echo the wordmark), and Hanken Grotesk for
-  reading. Both are self-hosted, so there are no third-party font requests.
-- Photos in `public/photos/` are Livewire's own, from the getlivewire.com image library. Higher-resolution
-  originals, and photos from founding firms, would sharpen the hero.
-- Numbering is used only where order matters (the three steps, the onboarding weeks).
+- Light alt concept: white page, near-black text `#141414`, one amber field `#f3b33e`, and ochre `#926620`
+  for text accents. Hairline rules. No photographs. The color wordmark sits in the nav and the footer.
+- Type: Archivo Black for display, Archivo for UI, Inter Tight for reading, JetBrains Mono for labels.
+  All four are self-hosted with `@fontsource`, so there are no third-party font requests.
+- Numbering is used only where order matters (the three steps, the onboarding weeks, the problem rows).
 
 ## SEO and AI answer engines
 
